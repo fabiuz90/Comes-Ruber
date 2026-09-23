@@ -102,51 +102,58 @@
     </div>
   </div>
 
-  <!-- HEADER / NAVIGATION -->
+  <!-- HEADER / NAVIGATION CON MENU MOBILE -->
   <header class="fixed top-0 left-0 right-0 z-40 backdrop-blur-xl border-b border-white/5 bg-dark-bg/70">
     <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
       <a href="#" class="font-serif text-lg tracking-[0.3em] uppercase text-gold font-bold">
         Comes Ruber
       </a>
+      
+      <!-- Nav Desktop -->
       <nav class="hidden md:flex gap-8 text-xs uppercase tracking-[0.2em] text-neutral-400">
         <a href="#hero" class="hover:text-gold transition-colors">Visione</a>
+        <a href="#heritage" class="hover:text-gold transition-colors">Storia & Terroir</a>
         <a href="#tasting" class="hover:text-gold transition-colors">Degustazione</a>
         <a href="#b2b" class="hover:text-gold transition-colors">Area B2B</a>
         <button onclick="openELabel()" class="text-gold hover:underline">E-Label UE</button>
       </nav>
+
+      <!-- Pulsante Menu Mobile -->
+      <button onclick="toggleMobileMenu()" class="md:hidden text-gold text-xl focus:outline-none">
+        ☰
+      </button>
+    </div>
+
+    <!-- Dropdown Menu Mobile -->
+    <div id="mobile-menu" class="hidden md:hidden bg-dark-card border-b border-gold/20 px-6 py-4 flex flex-col gap-4 text-xs uppercase tracking-[0.2em] text-neutral-300">
+      <a href="#hero" onclick="toggleMobileMenu()" class="hover:text-gold">Visione</a>
+      <a href="#heritage" onclick="toggleMobileMenu()" class="hover:text-gold">Storia & Terroir</a>
+      <a href="#tasting" onclick="toggleMobileMenu()" class="hover:text-gold">Degustazione</a>
+      <a href="#b2b" onclick="toggleMobileMenu()" class="hover:text-gold">Area B2B</a>
+      <button onclick="openELabel(); toggleMobileMenu();" class="text-gold text-left">E-Label UE</button>
     </div>
   </header>
 
   <!-- HERO CINEMATOGRAFICA CON IMMAGINE 16:9 4K (TESTI A SINISTRA) -->
   <section id="hero" class="relative min-h-screen flex flex-col justify-center items-center overflow-hidden pt-24 pb-12 border-b border-gold/20">
-    
-    <!-- Contenitore 16:9 4K -->
     <div class="relative w-full max-w-6xl mx-auto px-4 sm:px-6">
       <div class="relative aspect-video w-full rounded-2xl overflow-hidden border border-gold/30 shadow-[0_0_50px_rgba(0,0,0,0.9)]">
         
-        <!-- Immagine 16:9 caricata su GitHub -->
         <img 
           src="hero.png" 
           alt="Comes Ruber - Selezione Privata 4K" 
           class="w-full h-full object-cover"
         />
 
-        <!-- Sfocature e Gradienti per la massima leggibilità del testo -->
         <div class="absolute inset-0 bg-gradient-to-r from-black/85 via-black/40 to-transparent pointer-events-none"></div>
         <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/30 pointer-events-none"></div>
-
-        <!-- Glow d'atmosfera dorata -->
         <div class="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-1/2 h-1/2 bg-gold/10 blur-[90px] rounded-full pointer-events-none animate-pulse-glow"></div>
 
-        <!-- Contenuti posizionati sul lato SINISTRO per lasciare puliti bottiglia e calice -->
         <div class="absolute inset-0 z-10 flex flex-col justify-center p-8 sm:p-12 md:p-16 text-left items-start max-w-xl">
-          
-          <!-- Badge -->
           <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-gold/40 bg-black/70 backdrop-blur-md text-gold text-[10px] sm:text-xs tracking-[0.25em] uppercase shadow-2xl mb-4">
             <span>♛</span> Selezione Privata · 2023
           </div>
 
-          <!-- Titolo e Sottotitolo -->
           <h1 class="font-serif text-3xl sm:text-5xl md:text-6xl font-normal text-white tracking-[0.15em] uppercase drop-shadow-2xl leading-tight">
             Comes Ruber
           </h1>
@@ -154,7 +161,6 @@
             "Il Conte Rosso"
           </p>
 
-          <!-- Call to Action -->
           <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
             <a
               href="#tasting"
@@ -169,21 +175,69 @@
               Consulta E-Label
             </button>
           </div>
-
         </div>
       </div>
     </div>
-
   </section>
 
-  <!-- SEZIONE DEGUSTAZIONE -->
+  <!-- NUOVA SEZIONE: STORIA, TERROIR E SCHEDA TECNICA -->
+  <section id="heritage" class="py-24 px-6 max-w-6xl mx-auto border-b border-dark-border">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <span class="text-gold text-xs uppercase tracking-[0.3em] font-semibold block mb-2">Eredità & Origine</span>
+        <h2 class="font-serif text-3xl sm:text-4xl text-white mb-6 leading-tight">
+          L'Anima del Conte Rosso
+        </h2>
+        <p class="text-xs sm:text-sm text-neutral-400 leading-relaxed font-light mb-6">
+          Nato nel cuore di vigneti storici ad alta vocazione, Comes Ruber è il frutto di una rigorosa selezione manuale dei migliori grappoli. L'affinamento prolungato in botti d'avorio e rovere dona una struttura inconfondibile, pensata per evolvere nel tempo con grazia e carattere.
+        </p>
+        
+        <!-- Dettagli Scheda Tecnica -->
+        <div class="grid grid-cols-2 gap-4 pt-4 border-t border-dark-border text-xs">
+          <div>
+            <span class="text-neutral-500 block uppercase tracking-wider text-[10px]">Affinamento</span>
+            <span class="text-white font-medium">18 Mesi in Rovere</span>
+          </div>
+          <div>
+            <span class="text-neutral-500 block uppercase tracking-wider text-[10px]">Gradazione</span>
+            <span class="text-white font-medium">14.5% Vol.</span>
+          </div>
+          <div>
+            <span class="text-neutral-500 block uppercase tracking-wider text-[10px]">Temp. Servizio</span>
+            <span class="text-white font-medium">16°C - 18°C</span>
+          </div>
+          <div>
+            <span class="text-neutral-500 block uppercase tracking-wider text-[10px]">Potenziale Invecchiamento</span>
+            <span class="text-white font-medium">10-15 Anni</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scheda Elegante / Box In rilievo -->
+      <div class="p-8 rounded-2xl bg-dark-card border border-gold/20 shadow-2xl relative overflow-hidden">
+        <div class="absolute -top-10 -right-10 w-40 h-40 bg-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+        <h3 class="font-serif text-gold text-xl mb-4 text-center">In Simbiosi con la Terra</h3>
+        <p class="text-xs text-neutral-300 leading-relaxed text-center font-light mb-6">
+          Ogni annata rispecchia fedelmente il microclima e la composizione minerale del terreno, mantenendo un perfetto equilibrio tra freschezza, tannini e persistenza aromatica.
+        </p>
+        <div class="text-center">
+          <span class="inline-block px-4 py-2 border border-gold/30 rounded-full text-[10px] text-gold uppercase tracking-[0.2em]">Edizione Limitata Numerata</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEZIONE DEGUSTAZIONE & PAIRING -->
   <section id="tasting" class="py-24 px-6 bg-dark-card/40 border-b border-dark-border">
     <div class="max-w-4xl mx-auto text-center">
-      <h2 class="font-serif text-3xl sm:text-4xl text-white mb-16 tracking-wider">
+      <h2 class="font-serif text-3xl sm:text-4xl text-white mb-4 tracking-wider">
         Profilo Organolettico
       </h2>
+      <p class="text-xs text-neutral-400 mb-16 max-w-xl mx-auto font-light">
+        Un'esperienza sensoriale avvolgente guidata dall'armonia tra frutti rossi, spezie e note boisé.
+      </p>
 
-      <div class="grid sm:grid-cols-3 gap-8">
+      <div class="grid sm:grid-cols-3 gap-8 mb-16">
         <div class="p-8 rounded-2xl border border-dark-border bg-dark-bg/60 relative overflow-hidden">
           <div class="w-3 h-3 rounded-full bg-ruby mx-auto mb-4 shadow-lg shadow-ruby/50"></div>
           <h3 class="font-serif text-white text-lg mb-2">Visiva</h3>
@@ -207,6 +261,14 @@
             Pieno, caldo e strutturato, con trama tannica setosa e un lungo finale persistente.
           </p>
         </div>
+      </div>
+
+      <!-- NUOVO: ABBINAMENTI GASTRONOMICI -->
+      <div class="p-6 rounded-xl border border-gold/20 bg-dark-card/80 max-w-2xl mx-auto">
+        <span class="text-gold text-[10px] uppercase tracking-[0.3em] font-semibold block mb-2">Abbinamenti Consigliati</span>
+        <p class="text-xs text-neutral-300 font-light">
+          Carni rosse frollate, stufati ricchi, selvaggina da pelo, risotto al castelmagno e formaggi stagionati a pasta dura.
+        </p>
       </div>
     </div>
   </section>
@@ -249,10 +311,27 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="py-12 border-t border-dark-border text-center text-xs text-neutral-600">
-    <p class="font-serif text-gold tracking-widest uppercase mb-2">Comes Ruber</p>
-    <p>© 2026 — Tutti i diritti riservati. Selezione Privata Graf Rosso.</p>
+  <!-- FOOTER AGGIORNATO CON CONTATTI E LINK -->
+  <footer class="py-12 border-t border-dark-border text-center text-xs text-neutral-500 bg-black">
+    <div class="max-w-4xl mx-auto px-6 grid sm:grid-cols-3 gap-8 mb-8 text-left">
+      <div>
+        <p class="font-serif text-gold tracking-widest uppercase font-bold mb-2">Comes Ruber</p>
+        <p class="text-[11px] leading-relaxed">Selezione Privata Graf Rosso. Eccellenza enologica riservata a intenditori e ristorazione d'élite.</p>
+      </div>
+      <div>
+        <p class="text-white uppercase tracking-wider text-[11px] mb-2 font-semibold">Contatti</p>
+        <p class="text-[11px] leading-relaxed">Email: info@comesruber.com</p>
+        <p class="text-[11px] leading-relaxed">Servizio B2B: +39 0123 456789</p>
+      </div>
+      <div>
+        <p class="text-white uppercase tracking-wider text-[11px] mb-2 font-semibold">Legal & Compliance</p>
+        <button onclick="openELabel()" class="text-gold text-[11px] hover:underline block mb-1">E-Label Reg. UE 2021/2117</button>
+        <p class="text-[10px] text-neutral-600">Bevi responsabilmente.</p>
+      </div>
+    </div>
+    <div class="border-t border-neutral-900 pt-6">
+      <p>© 2026 Comes Ruber — Tutti i diritti riservati.</p>
+    </div>
   </footer>
 
   <!-- MODAL E-LABEL UE -->
@@ -320,6 +399,10 @@
     }
     function closeELabel() {
       document.getElementById('elabel-modal').classList.add('hidden');
+    }
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
     }
     function submitB2BForm(e) {
       e.preventDefault();
