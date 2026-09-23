@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comes Ruber | Vino Rosso d'Italia — Selezione Privata</title>
+    
+    <!-- Google Fonts: Playfair Display & Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,300&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            light: '#F3E5AB',
+                            DEFAULT: '#D4AF37',
+                            dark: '#AA820A',
+                            glow: 'rgba(212, 175, 55, 0.25)'
+                        },
+                        ruby: {
+                            light: '#9B3B48',
+                            DEFAULT: '#722F37',
+                            dark: '#4A1B22',
+                            deep: '#2D0D12'
+                        },
+                        dark: {
+                            bg: '#080808',
+                            card: '#121212',
+                            elevated: '#1A1A1A',
+                            border: '#262626'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- React, ReactDOM, Babel, Framer Motion & Lucide Icons CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #080808;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #222;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37;
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FFF5C0 0%, #D4AF37 50%, #9A7B1C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-border-glow {
+            box-shadow: 0 0 25px -5px rgba(212, 175, 55, 0.15);
+        }
+
+        .wine-glass-bg {
+            background: radial-gradient(circle at 50% 20%, rgba(114, 47, 55, 0.20) 0%, rgba(8, 8, 8, 0.98) 75%);
+        }
+    </style>
+</head>
+<body class="bg-dark-bg text-neutral-300 font-sans antialiased selection:bg-gold selection:text-black">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const { motion, AnimatePresence } = window.Motion;
+
+        // Custom Lucide Icon Renderer Helper
+        const Icon = ({ name, className = "w-5 h-5" }) => {
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, [name]);
+            return <i data-lucide={name} className={className}></i>;
+        };
+
+        function App() {
+            const [isElabelOpen, setIsElabelOpen] = useState(false);
+            const [scrolled, setScrolled] = useState(false);
+            const [formSubmitted, setFormSubmitted] = useState(false);
+            const [formData, setFormData] = useState({
+                nome: '',
+                azienda: '',
+                email: '',
+                telefono: '',
+                ruolo: 'Enoteca / Ristorante',
+                note: ''
+            });
+
+            useEffect(() => {
+                const handleScroll = () => {
+                    setScrolled(window.scrollY > 50);
+                };
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                setFormSubmitted(true);
+                setTimeout(() => {
+                    setFormData({ nome: '', azienda: '', email: '', telefono: '', ruolo: 'Enoteca / Ristorante', note: '' });
+                }, 5000);
+            };
+
+            return (
+                <div class="relative min-h-screen overflow-x-hidden wine-glass-bg">
+                    
+                    <div class="fixed inset-0 pointer-events-none -z-10">
+                        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-ruby/15 rounded-full blur-[150px]"></div>
+                        <div class="absolute bottom-1/3 left-1/4 w-[400px] h-[400px] bg-gold/5 rounded-full blur-[130px]"></div>
+                    </div>
+
+                    <header class={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${scrolled ? 'bg-dark-bg/90 backdrop-blur-md border-b border-white/10 py-4' : 'bg-transparent py-6'}`}>
+                        <div class="max-w-7xl mx-auto px-6 sm:px-10 flex items-center justify-between">
+                            <a href="#" class="flex items-center gap-3 group">
+                                <span class="text-gold font-serif text-2xl sm:text-3xl tracking-[0.25em] uppercase font-semibold group-hover:opacity-80 transition-opacity">
+                                    Comes Ruber
+                                </span>
+                            </a>
+                            
+                            <nav class="hidden md:flex items-center gap-8 text-xs font-medium uppercase tracking-[0.25em] text-neutral-400">
+                                <a href="#heritage" class="hover:text-gold transition-colors">Heritage</a>
+                                <a href="#degustazione" class="hover:text-gold transition-colors">Degustazione</a>
+                                <a href="#elabel" class="hover:text-gold transition-colors">E-Label UE</a>
+                                <a href="#campionature" class="hover:text-gold transition-colors">B2B Sample</a>
+                            </nav>
+
+                            <button 
+                                onClick={() => setIsElabelOpen(true)}
+                                class="flex items-center gap-2 border border-gold/40 bg-gold/5 px-4 py-2 rounded-full text-xs uppercase tracking-widest text-gold hover:bg-gold hover:text-black transition-all duration-300"
+                            >
+                                <Icon name="qr-code" className="w-3.5 h-3.5" />
+                                <span class="hidden sm:inline">E-Label</span> UE
+                            </button>
+                        </div>
+                    </header>
+
+                    <section class="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-28 pb-16 relative">
+                        <motion.div 
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1 }}
+                            class="max-w-4xl mx-auto flex flex-col items-center"
+                        >
+                            <div class="flex items-center gap-3 px-4 py-1.5 rounded-full border border-gold/30 bg-gold/5 text-gold text-xs tracking-[0.3em] uppercase mb-8 gold-border-glow">
+                                <Icon name="crown" className="w-3.5 h-3.5 text-gold" />
+                                <span>Selezione Privata · Annata 2023</span>
+                            </div>
+
+                            <h1 class="font-serif text-6xl sm:text-8xl md:text-9xl font-normal tracking-wider text-white uppercase mb-3">
+                                <span class="gold-gradient-text">Comes Ruber</span>
+                            </h1>
+
+                            <p class="font-serif italic text-gold/90 text-2xl sm:text-3xl font-light tracking-wide mb-8">
+                                "Il Conte Rosso"
+                            </p>
+
+                            <div class="w-20 h-[1px] bg-gradient-to-r from-transparent via-gold to-transparent mb-8"></div>
+
+                            <p class="text-base sm:text-lg text-neutral-300 max-w-2xl font-light leading-relaxed mb-12">
+                                Un’opera vitivinicola d'eccellenza dove l’eredità nobiliare romana incontra la struttura intensa e vellutata dei migliori vitigni rossi d’Italia.
+                            </p>
+
+                            <div class="flex flex-col sm:flex-row items-center gap-5 w-full sm:w-auto">
+                                <a 
+                                    href="#campionature" 
+                                    class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-gold to-gold-dark text-black font-semibold text-xs uppercase tracking-[0.25em] rounded-full hover:brightness-110 transition-all shadow-lg shadow-gold/20 flex items-center justify-center gap-2"
+                                >
+                                    <span>Richiedi Campionatura B2B</span>
+                                    <Icon name="arrow-right" className="w-4 h-4" />
+                                </a>
+                                <button 
+                                    onClick={() => setIsElabelOpen(true)}
+                                    class="w-full sm:w-auto px-8 py-4 border border-white/20 text-white font-medium text-xs uppercase tracking-[0.25em] rounded-full hover:bg-white/5 transition-all flex items-center justify-center gap-2"
+                                >
+                                    <Icon name="qr-code" className="w-4 h-4 text-gold" />
+                                    <span>Consulta E-Label UE</span>
+                                </button>
+                            </div>
+                        </motion.div>
+                    </section>
+
+                    <section id="heritage" class="py-28 px-6 border-t border-dark-border/80 max-w-7xl mx-auto">
+                        <div class="grid md:grid-cols-2 gap-16 items-center">
+                            <motion.div 
+                                initial={{ opacity: 0, x: -30 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.8 }}
+                            >
+                                <span class="text-xs font-semibold uppercase tracking-[0.3em] text-gold/80 block mb-3">Identità & Prestigio</span>
+                                <h2 class="font-serif text-4xl sm:text-5xl text-white font-normal mb-6 leading-tight">
+                                    L'Anima Latina della Nobiltà Enologica
+                                </h2>
+                                <div class="space-y-4 text-neutral-400 font-light text-sm sm:text-base leading-relaxed">
+                                    <p>
+                                        <strong class="text-white font-normal">Comes Ruber</strong> deriva dalla traduzione latina di <em>Conte Rosso</em>. È un tributo alla maestosità e all'autorevolezza dei grandi vini di riserva italiani.
+                                    </p>
+                                    <p>
+                                        Progettato per l'alta ristorazione, collezionisti privati ed enoteche selezionate, viene custodito in bottiglie di vetro scuro pesante a protezione dell'integrità organolettica. L'etichetta scura in carta opaca goffrata e impreziosita con dettagli in foglia d'oro esprime al primo sguardo la sua natura di lusso e distinzione.
+                                    </p>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-6 mt-10 pt-8 border-t border-dark-border">
+                                    <div>
+                                        <div class="font-serif text-3xl text-gold mb-1">14.0%</div>
+                                        <div class="text-xs uppercase tracking-wider text-neutral-500">Vol. Alcolico</div>
+                                    </div>
+                                    <div>
+                                        <div class="font-serif text-3xl text-gold mb-1">75 cl</div>
+                                        <div class="text-xs uppercase tracking-wider text-neutral-500">Formato Reale</div>
+                                    </div>
+                                </div>
+                            </motion.div>
+
+                            <motion.div 
+                                initial={{ opacity: 0, x: 30 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.8 }}
+                                class="bg-dark-card p-8 sm:p-10 rounded-2xl border border-dark-border relative overflow-hidden gold-border-glow"
+                            >
+                                <div class="absolute -top-10 -right-10 w-40 h-40 bg-ruby/20 rounded-full blur-3xl"></div>
+                                <h3 class="font-serif text-2xl text-white mb-6 flex items-center gap-3">
+                                    <Icon name="shield-check" className="text-gold w-6 h-6" />
+                                    <span>Garantito per Distribuzione B2B</span>
+                                </h3>
+
+                                <ul class="space-y-5 text-sm text-neutral-300">
+                                    <li class="flex items-start gap-4 pb-4 border-b border-dark-border/60">
+                                        <Icon name="wine" className="text-ruby-light w-5 h-5 shrink-0 mt-0.5" />
+                                        <div>
+                                            <div class="font-medium text-white">Vino Rosso d'Italia</div>
+                                            <div class="text-xs text-neutral-500 mt-0.5">Selezione accurata di uve rosse ad elevata struttura</div>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-4 pb-4 border-b border-dark-border/60">
+                                        <Icon name="award" className="text-gold w-5 h-5 shrink-0 mt-0.5" />
+                                        <div>
+                                            <div class="font-medium text-white">Tracciabilità di Filiera ICQRF</div>
+                                            <div class="text-xs text-neutral-500 mt-0.5">Certificazione ufficiale per l'imbottigliamento autorizzato</div>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-4">
+                                        <Icon name="qr-code" className="text-gold w-5 h-5 shrink-0 mt-0.5" />
+                                        <div>
+                                            <div class="font-medium text-white">E-Label Normativa UE 2021/2117</div>
+                                            <div class="text-xs text-neutral-500 mt-0.5">Trasparenza su ingredienti, allergeni e riciclo degli imballaggi</div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </motion.div>
+                        </div>
+                    </section>
+
+                    <section id="degustazione" class="py-28 px-6 bg-dark-card/40 border-t border-dark-border relative">
+                        <div class="max-w-7xl mx-auto">
+                            <div class="text-center max-w-2xl mx-auto mb-20">
+                                <span class="text-xs font-semibold uppercase tracking-[0.3em] text-gold/80 block mb-3">Analisi Sensoriale</span>
+                                <h2 class="font-serif text-4xl sm:text-5xl text-white font-normal">
+                                    Profilo Organolettico
+                                </h2>
+                                <p class="text-neutral-400 font-light text-sm mt-4">
+                                    Si consiglia di decantare 30 minuti prima del servizio ad una temperatura ideale di 16° - 18° C.
+                                </p>
+                            </div>
+
+                            <div class="grid md:grid-cols-3 gap-8">
+                                <motion.div 
+                                    whileHover={{ y: -6 }}
+                                    class="p-8 rounded-2xl bg-dark-bg border border-dark-border hover:border-gold/40 transition-all duration-300"
+                                >
+                                    <div class="w-12 h-12 rounded-full bg-ruby/20 flex items-center justify-center text-ruby-light mb-6">
+                                        <Icon name="eye" className="w-6 h-6" />
+                                    </div>
+                                    <h3 class="font-serif text-2xl text-white mb-3">Esame Visivo</h3>
+                                    <p class="text-sm text-neutral-400 font-light leading-relaxed">
+                                        Rosso rubino vivo, profondo e impenetrabile, impreziosito da riflessi granati brillanti all'unghia del calice che ne rivelano il carattere strutturato.
+                                    </p>
+                                </motion.div>
+
+                                <motion.div 
+                                    whileHover={{ y: -6 }}
+                                    class="p-8 rounded-2xl bg-dark-bg border border-dark-border hover:border-gold/40 transition-all duration-300"
+                                >
+                                    <div class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center text-gold mb-6">
+                                        <Icon name="sparkles" className="w-6 h-6" />
+                                    </div>
+                                    <h3 class="font-serif text-2xl text-white mb-3">Esame Olfattivo</h3>
+                                    <p class="text-sm text-neutral-400 font-light leading-relaxed">
+                                        Profumo ampio, elegante e persistente. Note spiccate di mora selvatica, prugna matura e mirtillo, accompagnate da sottili rimandi alla vaniglia e spezie dolci.
+                                    </p>
+                                </motion.div>
+
+                                <motion.div 
+                                    whileHover={{ y: -6 }}
+                                    class="p-8 rounded-2xl bg-dark-bg border border-dark-border hover:border-gold/40 transition-all duration-300"
+                                >
+                                    <div class="w-12 h-12 rounded-full bg-ruby/20 flex items-center justify-center text-ruby-light mb-6">
+                                        <Icon name="flame" className="w-6 h-6" />
+                                    </div>
+                                    <h3 class="font-serif text-2xl text-white mb-3">Esame Gustativo</h3>
+                                    <p class="text-sm text-neutral-400 font-light leading-relaxed">
+                                        In bocca è avvolgente, ricco e di eccellente tessitura. I tannini sono nobili e setosi, bilanciati da una piacevole freschezza che regala un finale lungo e armonioso.
+                                    </p>
+                                </motion.div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="elabel" class="py-24 px-6 border-t border-dark-border max-w-5xl mx-auto text-center">
+                        <div class="p-8 sm:p-12 rounded-3xl bg-gradient-to-b from-dark-card to-dark-bg border border-gold/20 gold-border-glow">
+                            <div class="inline-flex p-3 rounded-full bg-gold/10 text-gold mb-6">
+                                <Icon name="qr-code" className="w-8 h-8" />
+                            </div>
+                            <h2 class="font-serif text-3xl sm:text-4xl text-white mb-4">
+                                Etichetta Digitale Ufficiale Comes Ruber
+                            </h2>
+                            <p class="text-neutral-400 text-sm max-w-2xl mx-auto font-light leading-relaxed mb-8">
+                                In piena ottemperanza con la normativa europea Reg. UE 2021/2117 per la trasparenza nutrizionale e lo smaltimento ecologico degli imballaggi.
+                            </p>
+                            <button 
+                                onClick={() => setIsElabelOpen(true)}
+                                class="px-8 py-4 bg-gold text-black font-semibold text-xs uppercase tracking-[0.2em] rounded-full hover:bg-gold-light transition-all shadow-lg shadow-gold/10"
+                            >
+                                Apri Scheda Nutrizionale & Riciclo UE
+                            </button>
+                        </div>
+                    </section>
+
+                    <section id="campionature" class="py-28 px-6 border-t border-dark-border bg-dark-bg relative">
+                        <div class="max-w-4xl mx-auto">
+                            <div class="text-center mb-16">
+                                <span class="text-xs font-semibold uppercase tracking-[0.3em] text-gold block mb-3">Servizio Riservato B2B</span>
+                                <h2 class="font-serif text-4xl sm:text-5xl text-white font-normal">
+                                    Richiedi Bottiglie Campione
+                                </h2>
+                                <p class="text-neutral-400 font-light text-sm mt-3">
+                                    Riservato a ristoratori, sommelier, enoteche e distributori interessati a conoscere la qualità di Comes Ruber.
+                                </p>
+                            </div>
+
+                            <div class="bg-dark-card p-8 sm:p-12 rounded-2xl border border-dark-border">
+                                {formSubmitted ? (
+                                    <motion.div 
+                                        initial={{ opacity: 0, scale: 0.95 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        class="text-center py-12 space-y-4"
+                                    >
+                                        <div class="w-16 h-16 bg-gold/10 text-gold rounded-full flex items-center justify-center mx-auto mb-4">
+                                            <Icon name="check-circle" className="w-10 h-10" />
+                                        </div>
+                                        <h3 class="font-serif text-3xl text-white">Richiesta Ricevuta</h3>
+                                        <p class="text-neutral-400 text-sm max-w-md mx-auto">
+                                            Grazie per il tuo interesse. Il referente commerciale di <strong class="text-gold">Comes Ruber</strong> ti ricontatterà entro 24 ore lavorative.
+                                        </p>
+                                    </motion.div>
+                                ) : (
+                                    <form onSubmit={handleSubmit} class="space-y-6">
+                                        <div class="grid sm:grid-cols-2 gap-6">
+                                            <div>
+                                                <label class="block text-xs uppercase tracking-wider text-neutral-400 mb-2">Nome e Cognome *</label>
+                                                <input 
+                                                    type="text" 
+                                                    required 
+                                                    value={formData.nome}
+                                                    onChange={e => setFormData({...formData, nome: e.target.value})}
+                                                    placeholder="Es. Mario Rossi" 
+                                                    class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-gold transition-colors"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label class="block text-xs uppercase tracking-wider text-neutral-400 mb-2">Nome Locale / Azienda *</label>
+                                                <input 
+                                                    type="text" 
+                                                    required 
+                                                    value={formData.azienda}
+                                                    onChange={e => setFormData({...formData, azienda: e.target.value})}
+                                                    placeholder="Es. Ristorante Il Conte" 
+                                                    class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-gold transition-colors"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="grid sm:grid-cols-2 gap-6">
+                                            <div>
+                                                <label class="block text-xs uppercase tracking-wider text-neutral-400 mb-2">Email Aziendale *</label>
+                                                <input 
+                                                    type="email" 
+                                                    required 
+                                                    value={formData.email}
+                                                    onChange={e => setFormData({...formData, email: e.target.value})}
+                                                    placeholder="info@azienda.it" 
+                                                    class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-gold transition-colors"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label class="block text-xs uppercase tracking-wider text-neutral-400 mb-2">Telefono / WhatsApp *</label>
+                                                <input 
+                                                    type="tel" 
+                                                    required 
+                                                    value={formData.telefono}
+                                                    onChange={e => setFormData({...formData, telefono: e.target.value})}
+                                                    placeholder="+39 333 1234567" 
+                                                    class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-gold transition-colors"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <label class="block text-xs uppercase tracking-wider text-neutral-400 mb-2">Tipologia Attività</label>
+                                            <select 
+                                                value={formData.ruolo}
+                                                onChange={e => setFormData({...formData, ruolo: e.target.value})}
+                                                class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-gold transition-colors"
+                                            >
+                                                <option>Enoteca / Wine Bar</option>
+                                                <option>Ristorante / Hotel di Lusso</option>
+                                                <option>Distributore / Agente di Commercio</option>
+                                                <option>Collezionista Privato</option>
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <label class="block text-xs uppercase tracking-wider text-neutral-400 mb-2">Note / Indirizzo per l'invio campionatura</label>
+                                            <textarea 
+                                                rows="3" 
+                                                value={formData.note}
+                                                onChange={e => setFormData({...formData, note: e.target.value})}
+                                                placeholder="Indica qui il numero di bottiglie desiderato (es. cassa da 6 o 12) ed eventuali note di spedizione..." 
+                                                class="w-full bg-dark-bg border border-dark-border rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-gold transition-colors"
+                                            ></textarea>
+                                        </div>
+
+                                        <button 
+                                            type="submit" 
+                                            class="w-full py-4 bg-gold text-black font-semibold text-xs uppercase tracking-[0.25em] rounded-lg hover:bg-gold-light transition-all shadow-lg shadow-gold/10"
+                                        >
+                                            Invia Richiesta Campionatura Comes Ruber
+                                        </button>
+                                    </form>
+                                )}
+                            </div>
+                        </div>
+                    </section>
+
+                    <footer class="py-12 px-6 border-t border-dark-border text-center text-xs text-neutral-500">
+                        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+                            <div class="font-serif text-lg text-gold tracking-widest uppercase">
+                                Comes Ruber
+                            </div>
+                            <p>© {new Date().getFullYear()} COMES RUBER. Tutti i diritti riservati.</p>
+                            <p class="text-neutral-600">Vino Rosso d'Italia | Imbottigliato per Comes Ruber — Cod. ICQRF IT/XX/12345</p>
+                        </div>
+                    </footer>
+
+                    <AnimatePresence>
+                        {isElabelOpen && (
+                            <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
+                                <motion.div 
+                                    initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                                    exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                                    class="relative w-full max-w-lg bg-dark-card border border-gold/30 rounded-2xl p-6 sm:p-8 shadow-2xl text-left overflow-hidden"
+                                >
+                                    <button 
+                                        onClick={() => setIsElabelOpen(false)}
+                                        class="absolute top-5 right-5 text-neutral-400 hover:text-white transition-colors"
+                                    >
+                                        <Icon name="x" className="w-5 h-5" />
+                                    </button>
+
+                                    <div class="flex items-center gap-2 text-gold mb-3">
+                                        <Icon name="shield-check" className="w-5 h-5" />
+                                        <span class="text-xs uppercase tracking-widest font-semibold">Regolamento UE 2021/2117</span>
+                                    </div>
+
+                                    <h3 class="font-serif text-2xl text-white mb-1">Comes Ruber 2023</h3>
+                                    <p class="text-xs text-neutral-400 mb-6">Etichetta Digitale & Dichiarazione Nutrizionale Ufficiale</p>
+
+                                    <div class="space-y-3 text-xs text-neutral-300 border-t border-dark-border pt-4">
+                                        <div class="flex justify-between border-b border-dark-border/60 pb-2">
+                                            <span class="text-neutral-500">Valore Energetico (100ml):</span>
+                                            <span class="font-mono text-white">345 kJ / 83 kcal</span>
+                                        </div>
+                                        <div class="flex justify-between border-b border-dark-border/60 pb-2">
+                                            <span class="text-neutral-500">Grassi (di cui saturi):</span>
+                                            <span class="font-mono text-white">0 g (0 g)</span>
+                                        </div>
+                                        <div class="flex justify-between border-b border-dark-border/60 pb-2">
+                                            <span class="text-neutral-500">Carboidrati / Zuccheri:</span>
+                                            <span class="font-mono text-white">0.8 g / 0.2 g</span>
+                                        </div>
+                                        <div class="flex justify-between border-b border-dark-border/60 pb-2">
+                                            <span class="text-neutral-500">Proteine & Sale:</span>
+                                            <span class="font-mono text-white">0 g / 0 g</span>
+                                        </div>
+                                        <div class="flex justify-between border-b border-dark-border/60 pb-2">
+                                            <span class="text-neutral-500">Allergeni Dichiarati:</span>
+                                            <span class="text-ruby-light font-semibold">Contiene Solfiti</span>
+                                        </div>
+                                        <div class="flex justify-between border-b border-dark-border/60 pb-2">
+                                            <span class="text-neutral-500">Ingredienti:</span>
+                                            <span class="text-right text-neutral-300">Uva, conservanti (metabisolfito di potassio)</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-6 pt-4 border-t border-dark-border">
+                                        <div class="text-xs font-semibold text-gold mb-3 flex items-center gap-2 uppercase tracking-wider">
+                                            <Icon name="recycle" className="w-4 h-4" /> Smaltimento Ambientale Imballaggi
+                                        </div>
+                                        <div class="grid grid-cols-3 gap-3 text-center text-[11px]">
+                                            <div class="p-3 bg-dark-bg rounded-lg border border-dark-border">
+                                                <div class="font-bold text-white mb-0.5">GL 70</div>
+                                                <div class="text-neutral-500">Bottiglia Vetro</div>
+                                            </div>
+                                            <div class="p-3 bg-dark-bg rounded-lg border border-dark-border">
+                                                <div class="font-bold text-white mb-0.5">FOR 50</div>
+                                                <div class="text-neutral-500">Tappo Sughero</div>
+                                            </div>
+                                            <div class="p-3 bg-dark-bg rounded-lg border border-dark-border">
+                                                <div class="font-bold text-white mb-0.5">C/ALU 90</div>
+                                                <div class="text-neutral-500">Capsula Metallo</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            </div>
+                        )}
+                    </AnimatePresence>
+
+                </div>
+            );
+        }
+
+        // Render React Application
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+</body>
+</html>
