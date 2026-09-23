@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Comes Ruber | Graf Rosso — Selezione Privata</title>
+  <title>Comes Ruber | Selezione Privata</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,15 +57,6 @@
     }
   </script>
 
-  <!-- React & Babel Core -->
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
-  <!-- Lucide Icons & Framer Motion -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
-
   <style>
     body {
       background-color: #080808;
@@ -89,301 +80,272 @@
 </head>
 <body class="selection:bg-gold selection:text-black font-sans custom-scrollbar">
 
-  <div id="root"></div>
+  <!-- AGE GATE OVERLAY -->
+  <div id="age-gate" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl">
+    <div class="max-w-md w-full bg-dark-card border border-gold/30 p-8 rounded-2xl text-center shadow-2xl relative overflow-hidden">
+      <div class="absolute -top-12 -left-12 w-32 h-32 bg-ruby/30 rounded-full blur-2xl pointer-events-none"></div>
+      <div class="text-gold text-2xl font-serif mb-2">♛</div>
+      <h2 class="font-serif text-2xl text-white tracking-widest uppercase mb-2">Comes Ruber</h2>
+      <p class="text-xs uppercase tracking-widest text-gold/80 mb-6">Verifica dell'Età</p>
+      
+      <p class="text-sm text-neutral-300 leading-relaxed mb-8">
+        Il contenuto di questo sito è riservato a persone che hanno raggiunto l'età legale per il consumo di bevande alcoliche nel proprio paese di residenza.
+      </p>
 
-  <script type="text/babel">
-    const { useState, useEffect } = React;
-    const { motion, AnimatePresence } = window.Motion;
+      <div class="flex flex-col gap-3">
+        <button
+          onclick="document.getElementById('age-gate').style.display='none'"
+          className="w-full py-3.5 bg-gold text-black font-semibold text-xs uppercase tracking-[0.2em] rounded-full hover:bg-gold-light transition-all shadow-lg shadow-gold/10"
+          style="background-color: #D4AF37; padding: 14px; border-radius: 9999px; font-weight: 600; color: #000; text-transform: uppercase; letter-spacing: 2px;"
+        >
+          Dichiaro di avere 18+ anni
+        </button>
+        <a
+          href="https://www.google.com"
+          class="w-full py-3 border border-neutral-800 text-neutral-500 font-medium text-xs uppercase tracking-[0.15em] rounded-full hover:bg-neutral-900 hover:text-neutral-300 transition-all text-center block"
+        >
+          Non ho l'età legale
+        </a>
+      </div>
+    </div>
+  </div>
 
-    // --- COMPONENTE AGE GATE ---
-    function AgeGate({ onVerify }) {
-      return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl">
-          <div className="max-w-md w-full bg-dark-card border border-gold/30 p-8 rounded-2xl text-center shadow-2xl relative overflow-hidden">
-            <div className="absolute -top-12 -left-12 w-32 h-32 bg-ruby/30 rounded-full blur-2xl pointer-events-none" />
-            <div className="text-gold text-2xl font-serif mb-2">♛</div>
-            <h2 className="font-serif text-2xl text-white tracking-widest uppercase mb-2">Comes Ruber</h2>
-            <p className="text-xs uppercase tracking-widest text-gold/80 mb-6">Verifica dell'Età</p>
-            
-            <p className="text-sm text-neutral-300 leading-relaxed mb-8">
-              Il contenuto di questo sito è riservato a persone che hanno raggiunto l'età legale per il consumo di bevande alcoliche nel proprio paese di residenza.
-            </p>
+  <!-- HEADER / NAVIGATION -->
+  <header class="fixed top-0 left-0 right-0 z-40 backdrop-blur-xl border-b border-white/5 bg-dark-bg/70">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#" class="font-serif text-lg tracking-[0.3em] uppercase text-gold font-bold">
+        Comes Ruber
+      </a>
+      <nav class="hidden md:flex gap-8 text-xs uppercase tracking-[0.2em] text-neutral-400">
+        <a href="#hero" class="hover:text-gold transition-colors">Visione</a>
+        <a href="#tasting" class="hover:text-gold transition-colors">Degustazione</a>
+        <a href="#b2b" class="hover:text-gold transition-colors">Area B2B</a>
+        <button onclick="openELabel()" class="text-gold hover:underline">E-Label UE</button>
+      </nav>
+    </div>
+  </header>
 
-            <div className="flex flex-col gap-3">
-              <button
-                onClick={onVerify}
-                className="w-full py-3.5 bg-gold text-black font-semibold text-xs uppercase tracking-[0.2em] rounded-full hover:bg-gold-light transition-all shadow-lg shadow-gold/10"
-              >
-                Dichiaro di avere 18+ anni
-              </button>
-              <a
-                href="https://www.google.com"
-                className="w-full py-3 border border-neutral-800 text-neutral-500 font-medium text-xs uppercase tracking-[0.15em] rounded-full hover:bg-neutral-900 hover:text-neutral-300 transition-all"
-              >
-                Non ho l'età legale
-              </a>
-            </div>
+  <!-- HERO CINEMATOGRAFICA CON SFONDO CANTINA, FUMO E TAVOLO -->
+  <section id="hero" class="relative min-h-screen flex flex-col justify-end items-center overflow-hidden pb-12 pt-28 border-b border-gold/20">
+    
+    <!-- Sfondo Bottaia in Penombra -->
+    <div 
+      class="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105 opacity-25 mix-blend-luminosity pointer-events-none"
+      style="background-image: url('https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?q=80&w=2000&auto=format&fit=crop')"
+    ></div>
+
+    <!-- Volumetric Glow -->
+    <div class="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/75 to-ruby/20 pointer-events-none"></div>
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-full max-w-4xl h-96 bg-gold/10 blur-[130px] rounded-full pointer-events-none animate-pulse-glow"></div>
+
+    <!-- Effetti Fumo e Nebbia Dinamica -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden">
+      <div class="absolute bottom-10 -left-20 w-[600px] h-[400px] bg-neutral-500/10 rounded-full blur-3xl animate-smoke-slow"></div>
+      <div class="absolute bottom-20 -right-20 w-[500px] h-[350px] bg-ruby/15 rounded-full blur-3xl animate-smoke-fast"></div>
+    </div>
+
+    <!-- Contenuto della Scena -->
+    <div class="relative z-10 max-w-4xl mx-auto px-4 text-center flex flex-col items-center">
+      
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/40 bg-black/60 backdrop-blur-md text-gold text-[11px] tracking-[0.3em] uppercase mb-4 shadow-xl">
+        <span>♛</span> Selezione Privata · Annata 2023
+      </div>
+
+      <h1 class="font-serif text-5xl sm:text-7xl lg:text-8xl font-normal text-white tracking-[0.15em] uppercase drop-shadow-2xl">
+        Comes Ruber
+      </h1>
+      <p class="font-serif italic text-gold text-xl sm:text-3xl mb-4 tracking-widest">
+        "Il Conte Rosso"
+      </p>
+
+      <!-- BOTTIGLIA SUL TAVOLO -->
+      <div class="relative w-full max-w-xs h-72 sm:h-96 my-2 flex items-end justify-center">
+        <!-- Ombra della bottiglia -->
+        <div class="absolute bottom-1 w-44 h-6 bg-black/95 blur-md rounded-full transform scale-y-50"></div>
+        
+        <!-- Bottiglia -->
+        <img 
+          src="https://images.unsplash.com/photo-1586370434639-0fe43b2d32e6?q=80&w=800&auto=format&fit=crop" 
+          alt="Bottiglia Comes Ruber su tavolo in cantina"
+          class="relative z-10 h-full object-contain filter drop-shadow-[0_25px_35px_rgba(0,0,0,0.95)] transition-transform duration-700 hover:scale-105"
+        />
+
+        <!-- Fumo radente -->
+        <div class="absolute bottom-0 w-full h-12 bg-gradient-to-t from-black/80 to-transparent z-20 pointer-events-none"></div>
+      </div>
+
+      <!-- TAVOLO MASSICCIO IN LEGNO -->
+      <div class="w-full h-2 bg-gradient-to-r from-transparent via-[#2a1a08] to-transparent border-t border-gold/40 shadow-2xl mb-8"></div>
+
+      <!-- PULSANTI -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a
+          href="#tasting"
+          class="px-8 py-3.5 bg-gold text-black text-xs font-semibold uppercase tracking-[0.25em] hover:bg-gold-light transition-all rounded-full shadow-xl shadow-gold/10"
+        >
+          Note Degustazione
+        </a>
+        <button
+          onclick="openELabel()"
+          class="px-8 py-3.5 border border-gold/40 text-gold text-xs font-semibold uppercase tracking-[0.25em] hover:bg-gold/10 transition-all rounded-full"
+        >
+          Consulta E-Label
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SEZIONE DEGUSTAZIONE -->
+  <section id="tasting" class="py-24 px-6 bg-dark-card/40 border-b border-dark-border">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="font-serif text-3xl sm:text-4xl text-white mb-16 tracking-wider">
+        Profilo Organolettico
+      </h2>
+
+      <div class="grid sm:grid-cols-3 gap-8">
+        <div class="p-8 rounded-2xl border border-dark-border bg-dark-bg/60 relative overflow-hidden">
+          <div class="w-3 h-3 rounded-full bg-ruby mx-auto mb-4 shadow-lg shadow-ruby/50"></div>
+          <h3 class="font-serif text-white text-lg mb-2">Visiva</h3>
+          <p class="text-xs text-neutral-400 leading-relaxed font-light">
+            Rosso rubino profondo con eleganti rifrazioni granate sull’unghia del calice.
+          </p>
+        </div>
+
+        <div class="p-8 rounded-2xl border border-dark-border bg-dark-bg/60 relative overflow-hidden">
+          <div class="w-3 h-3 rounded-full bg-gold mx-auto mb-4 shadow-lg shadow-gold/50"></div>
+          <h3 class="font-serif text-white text-lg mb-2">Olfattiva</h3>
+          <p class="text-xs text-neutral-400 leading-relaxed font-light">
+            Bouquet avvolgente di frutti di bosco, prugna matura, vaniglia e spezie nobili.
+          </p>
+        </div>
+
+        <div class="p-8 rounded-2xl border border-dark-border bg-dark-bg/60 relative overflow-hidden">
+          <div class="w-3 h-3 rounded-full bg-amber-600 mx-auto mb-4 shadow-lg shadow-amber-600/50"></div>
+          <h3 class="font-serif text-white text-lg mb-2">Gustativa</h3>
+          <p class="text-xs text-neutral-400 leading-relaxed font-light">
+            Pieno, caldo e strutturato, con trama tannica setosa e un lungo finale persistente.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULO RICHIESTA CAMPIONATURE B2B -->
+  <section id="b2b" class="py-24 px-6 max-w-3xl mx-auto text-center">
+    <div class="p-8 sm:p-12 bg-dark-card border border-gold/20 rounded-3xl relative overflow-hidden shadow-2xl">
+      <div class="absolute -bottom-20 -right-20 w-60 h-60 bg-ruby/20 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <h2 class="font-serif text-3xl text-white mb-2">Richiesta Campionature B2B</h2>
+      <p class="text-xs text-neutral-400 mb-8 font-light">Riservato a Ristoranti, Enoteche e Importatori di settore.</p>
+
+      <div id="form-message" class="hidden p-4 mb-4 bg-gold/10 border border-gold/40 text-gold text-xs rounded-xl">
+        Richiesta inviata con successo. Un nostro referente ti risponderà entro 24 ore.
+      </div>
+
+      <form id="b2b-form" onsubmit="submitB2BForm(event)" class="space-y-4 text-left">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[10px] uppercase tracking-widest text-neutral-400 mb-1">Nome e Cognome</label>
+            <input type="text" required class="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-4 py-2.5 text-xs text-white focus:outline-none focus:border-gold" />
+          </div>
+          <div>
+            <label class="block text-[10px] uppercase tracking-widest text-neutral-400 mb-1">Ragione Sociale / P.IVA</label>
+            <input type="text" required class="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-4 py-2.5 text-xs text-white focus:outline-none focus:border-gold" />
           </div>
         </div>
-      );
-    }
+        <div>
+          <label class="block text-[10px] uppercase tracking-widest text-neutral-400 mb-1">Email Aziendale</label>
+          <input type="email" required class="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-4 py-2.5 text-xs text-white focus:outline-none focus:border-gold" />
+        </div>
+        <div>
+          <label class="block text-[10px] uppercase tracking-widest text-neutral-400 mb-1">Messaggio / Quantità Stimate</label>
+          <textarea rows="3" class="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-4 py-2.5 text-xs text-white focus:outline-none focus:border-gold" placeholder="Descrivi la tua attività e i volumi previsti..."></textarea>
+        </div>
+        <button type="submit" class="w-full py-3.5 bg-gold text-black font-semibold text-xs uppercase tracking-[0.2em] rounded-lg hover:bg-gold-light transition-all shadow-lg shadow-gold/10">
+          Invia Richiesta Riservata
+        </button>
+      </form>
+    </div>
+  </section>
 
-    // --- COMPONENTE E-LABEL MODAL (UE 2021/2117) ---
-    function ELabelModal({ isOpen, onClose }) {
-      if (!isOpen) return null;
+  <!-- FOOTER -->
+  <footer class="py-12 border-t border-dark-border text-center text-xs text-neutral-600">
+    <p class="font-serif text-gold tracking-widest uppercase mb-2">Comes Ruber</p>
+    <p>© 2026 — Tutti i diritti riservati. Selezione Privata Graf Rosso.</p>
+  </footer>
 
-      return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
-          <div className="relative w-full max-w-lg bg-dark-card border border-gold/30 rounded-2xl p-6 sm:p-8 shadow-2xl text-left">
-            <button 
-              onClick={onClose}
-              className="absolute top-4 right-4 text-neutral-400 hover:text-white transition-colors"
-            >
-              ✕
-            </button>
+  <!-- MODAL E-LABEL UE -->
+  <div id="elabel-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
+    <div class="relative w-full max-w-lg bg-dark-card border border-gold/30 rounded-2xl p-6 sm:p-8 shadow-2xl text-left">
+      <button 
+        onclick="closeELabel()"
+        class="absolute top-4 right-4 text-neutral-400 hover:text-white transition-colors"
+      >
+        ✕
+      </button>
 
-            <div className="flex items-center gap-2 text-gold mb-2">
-              <span className="text-xs uppercase tracking-widest font-semibold">Conformità Reg. UE 2021/2117</span>
-            </div>
+      <div class="flex items-center gap-2 text-gold mb-2">
+        <span class="text-xs uppercase tracking-widest font-semibold">Conformità Reg. UE 2021/2117</span>
+      </div>
 
-            <h3 className="font-serif text-2xl text-white mb-4">
-              Dichiarazione Nutrizionale & Ambientale
-            </h3>
+      <h3 class="font-serif text-2xl text-white mb-4">
+        Dichiarazione Nutrizionale & Ambientale
+      </h3>
 
-            <div className="space-y-3 text-xs text-neutral-300 border-t border-dark-border pt-4">
-              <div className="grid grid-cols-2 gap-2 border-b border-neutral-800/80 pb-2">
-                <span className="text-neutral-500">Valore Energetico:</span>
-                <span className="text-right font-mono text-neutral-200">345 kJ / 83 kcal (per 100ml)</span>
-              </div>
-              <div className="grid grid-cols-2 gap-2 border-b border-neutral-800/80 pb-2">
-                <span className="text-neutral-500">Carboidrati / Zuccheri:</span>
-                <span className="text-right font-mono text-neutral-200">0.8 g / 0.2 g</span>
-              </div>
-              <div className="grid grid-cols-2 gap-2 border-b border-neutral-800/80 pb-2">
-                <span className="text-neutral-500">Allergeni:</span>
-                <span className="text-right text-ruby font-semibold">Contiene Solfiti</span>
-              </div>
-              <div className="grid grid-cols-2 gap-2 border-b border-neutral-800/80 pb-2">
-                <span className="text-neutral-500">Ingredienti:</span>
-                <span className="text-right text-neutral-200">Uve, conservanti (metabisolfito di potassio)</span>
-              </div>
-            </div>
+      <div class="space-y-3 text-xs text-neutral-300 border-t border-dark-border pt-4">
+        <div class="grid grid-cols-2 gap-2 border-b border-neutral-800/80 pb-2">
+          <span class="text-neutral-500">Valore Energetico:</span>
+          <span class="text-right font-mono text-neutral-200">345 kJ / 83 kcal (per 100ml)</span>
+        </div>
+        <div class="grid grid-cols-2 gap-2 border-b border-neutral-800/80 pb-2">
+          <span class="text-neutral-500">Carboidrati / Zuccheri:</span>
+          <span class="text-right font-mono text-neutral-200">0.8 g / 0.2 g</span>
+        </div>
+        <div class="grid grid-cols-2 gap-2 border-b border-neutral-800/80 pb-2">
+          <span class="text-neutral-500">Allergeni:</span>
+          <span class="text-right text-ruby font-semibold">Contiene Solfiti</span>
+        </div>
+        <div class="grid grid-cols-2 gap-2 border-b border-neutral-800/80 pb-2">
+          <span class="text-neutral-500">Ingredienti:</span>
+          <span class="text-right text-neutral-200">Uve, conservanti (metabisolfito di potassio)</span>
+        </div>
+      </div>
 
-            <div className="mt-6 pt-4 border-t border-dark-border">
-              <div className="text-gold mb-3 text-xs font-semibold uppercase tracking-wider">
-                Smaltimento Imballaggio
-              </div>
-              <div className="grid grid-cols-3 gap-2 text-[11px] text-center">
-                <div className="p-2.5 bg-neutral-900/80 rounded-lg border border-neutral-800">
-                  <div className="font-bold text-white">GL 70</div>
-                  <div className="text-neutral-500 mt-0.5">Bottiglia Vetro</div>
-                </div>
-                <div className="p-2.5 bg-neutral-900/80 rounded-lg border border-neutral-800">
-                  <div className="font-bold text-white">FOR 50</div>
-                  <div className="text-neutral-500 mt-0.5">Tappo Sughero</div>
-                </div>
-                <div className="p-2.5 bg-neutral-900/80 rounded-lg border border-neutral-800">
-                  <div className="font-bold text-white">C/ALU 90</div>
-                  <div className="text-neutral-500 mt-0.5">Capsula Metal</div>
-                </div>
-              </div>
-            </div>
+      <div class="mt-6 pt-4 border-t border-dark-border">
+        <div class="text-gold mb-3 text-xs font-semibold uppercase tracking-wider">
+          Smaltimento Imballaggio
+        </div>
+        <div class="grid grid-cols-3 gap-2 text-[11px] text-center">
+          <div class="p-2.5 bg-neutral-900/80 rounded-lg border border-neutral-800">
+            <div class="font-bold text-white">GL 70</div>
+            <div class="text-neutral-500 mt-0.5">Bottiglia Vetro</div>
+          </div>
+          <div class="p-2.5 bg-neutral-900/80 rounded-lg border border-neutral-800">
+            <div class="font-bold text-white">FOR 50</div>
+            <div class="text-neutral-500 mt-0.5">Tappo Sughero</div>
+          </div>
+          <div class="p-2.5 bg-neutral-900/80 rounded-lg border border-neutral-800">
+            <div class="font-bold text-white">C/ALU 90</div>
+            <div class="text-neutral-500 mt-0.5">Capsula Metal</div>
           </div>
         </div>
-      );
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openELabel() {
+      document.getElementById('elabel-modal').classList.remove('hidden');
     }
-
-    // --- APP PRINCIPALE ---
-    function App() {
-      const [isVerified, setIsVerified] = useState(false);
-      const [isELabelOpen, setIsELabelOpen] = useState(false);
-      const [formStatus, setFormStatus] = useState(null);
-
-      const handleFormSubmit = (e) => {
-        e.preventDefault();
-        setFormStatus("Richiesta inviata con successo. Un consulente B2B ti risponderà entro 24h.");
-      };
-
-      return (
-        <div className="min-h-screen bg-dark-bg text-neutral-200 relative">
-          
-          {!isVerified && <AgeGate onVerify={() => setIsVerified(true)} />}
-
-          {/* HEADER / NAVIGATION */}
-          <header className="fixed top-0 left-0 right-0 z-40 backdrop-blur-xl border-b border-white/5 bg-dark-bg/70">
-            <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-              <a href="#" className="font-serif text-lg tracking-[0.3em] uppercase text-gold font-bold">
-                Comes Ruber
-              </a>
-              <nav className="hidden md:flex gap-8 text-xs uppercase tracking-[0.2em] text-neutral-400">
-                <a href="#hero" className="hover:text-gold transition-colors">Visione</a>
-                <a href="#tasting" className="hover:text-gold transition-colors">Degustazione</a>
-                <a href="#b2b" className="hover:text-gold transition-colors">Area B2B</a>
-                <button onClick={() => setIsELabelOpen(true)} className="text-gold hover:underline">E-Label UE</button>
-              </nav>
-            </div>
-          </header>
-
-          {/* HERO CINEMATOGRAFICA CON SFONDO CANTINA, FUMO E TAVOLO */}
-          <section id="hero" className="relative min-h-screen flex flex-col justify-end items-center overflow-hidden pb-12 pt-28 border-b border-gold/20">
-            
-            <!-- 1. Sfondo Bottaia in Penombra -->
-            <div 
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105 opacity-25 mix-blend-luminosity pointer-events-none"
-              style={{
-                backgroundImage: `url('https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?q=80&w=2000&auto=format&fit=crop')`
-              }}
-            />
-
-            <!-- 2. Volumetric Glow & Sfumature Rubino/Oro -->
-            <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/75 to-ruby/20 pointer-events-none" />
-            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-full max-w-4xl h-96 bg-gold/10 blur-[130px] rounded-full pointer-events-none animate-pulse-glow" />
-
-            <!-- 3. Effetti Fumo e Nebbia Dinamica -->
-            <div className="absolute inset-0 pointer-events-none overflow-hidden">
-              <div className="absolute bottom-10 -left-20 w-[600px] h-[400px] bg-neutral-500/10 rounded-full blur-3xl animate-smoke-slow" />
-              <div className="absolute bottom-20 -right-20 w-[500px] h-[350px] bg-ruby/15 rounded-full blur-3xl animate-smoke-fast" />
-            </div>
-
-            <!-- 4. Contenuto della Scena -->
-            <div className="relative z-10 max-w-4xl mx-auto px-4 text-center flex flex-col items-center">
-              
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/40 bg-black/60 backdrop-blur-md text-gold text-[11px] tracking-[0.3em] uppercase mb-4 shadow-xl">
-                <span>♛</span> Selezione Privata · Annata 2023
-              </div>
-
-              <h1 className="font-serif text-5xl sm:text-7xl lg:text-8xl font-normal text-white tracking-[0.15em] uppercase drop-shadow-2xl">
-                Comes Ruber
-              </h1>
-              <p className="font-serif italic text-gold text-xl sm:text-3xl mb-4 tracking-widest">
-                "Il Conte Rosso"
-              </p>
-
-              <!-- SCENA DELLA BOTTIGLIA SUL TAVOLO IN LEGNO -->
-              <div className="relative w-full max-w-xs h-72 sm:h-96 my-2 flex items-end justify-center">
-                <!-- Ombra della bottiglia sul legno -->
-                <div className="absolute bottom-1 w-44 h-6 bg-black/95 blur-md rounded-full transform scale-y-50" />
-                
-                <!-- BOTTIGLIA -->
-                <img 
-                  src="https://images.unsplash.com/photo-1586370434639-0fe43b2d32e6?q=80&w=800&auto=format&fit=crop" 
-                  alt="Bottiglia Comes Ruber su tavolo in cantina"
-                  className="relative z-10 h-full object-contain filter drop-shadow-[0_25px_35px_rgba(0,0,0,0.95)] transition-transform duration-700 hover:scale-105"
-                />
-
-                <!-- Fumo radente il tavolo -->
-                <div className="absolute bottom-0 w-full h-12 bg-gradient-to-t from-black/80 to-transparent z-20 pointer-events-none" />
-              </div>
-
-              <!-- TAVOLO MASSICCIO IN LEGNO IN PRIMO PIANO -->
-              <div className="w-full h-2 bg-gradient-to-r from-transparent via-[#2a1a08] to-transparent border-t border-gold/40 shadow-2xl mb-8" />
-
-              <!-- PULSANTI AZIONE -->
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a
-                  href="#tasting"
-                  className="px-8 py-3.5 bg-gold text-black text-xs font-semibold uppercase tracking-[0.25em] hover:bg-gold-light transition-all rounded-full shadow-xl shadow-gold/10"
-                >
-                  Note Degustazione
-                </a>
-                <button
-                  onClick={() => setIsELabelOpen(true)}
-                  className="px-8 py-3.5 border border-gold/40 text-gold text-xs font-semibold uppercase tracking-[0.25em] hover:bg-gold/10 transition-all rounded-full"
-                >
-                  Consulta E-Label
-                </button>
-              </div>
-
-            </div>
-          </section>
-
-          <!-- SEZIONE DEGUSTAZIONE -->
-          <section id="tasting" className="py-24 px-6 bg-dark-card/40 border-b border-dark-border">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="font-serif text-3xl sm:text-4xl text-white mb-16 tracking-wider">
-                Profilo Organolettico
-              </h2>
-
-              <div className="grid sm:grid-cols-3 gap-8">
-                <div className="p-8 rounded-2xl border border-dark-border bg-dark-bg/60 relative overflow-hidden">
-                  <div className="w-3 h-3 rounded-full bg-ruby mx-auto mb-4 shadow-lg shadow-ruby/50" />
-                  <h3 className="font-serif text-white text-lg mb-2">Visiva</h3>
-                  <p className="text-xs text-neutral-400 leading-relaxed font-light">
-                    Rosso rubino profondo con eleganti rifrazioni granate sull’unghia del calice.
-                  </p>
-                </div>
-
-                <div className="p-8 rounded-2xl border border-dark-border bg-dark-bg/60 relative overflow-hidden">
-                  <div className="w-3 h-3 rounded-full bg-gold mx-auto mb-4 shadow-lg shadow-gold/50" />
-                  <h3 className="font-serif text-white text-lg mb-2">Olfattiva</h3>
-                  <p className="text-xs text-neutral-400 leading-relaxed font-light">
-                    Bouquet avvolgente di frutti di bosco, prugna matura, vaniglia e spezie nobili.
-                  </p>
-                </div>
-
-                <div className="p-8 rounded-2xl border border-dark-border bg-dark-bg/60 relative overflow-hidden">
-                  <div className="w-3 h-3 rounded-full bg-amber-600 mx-auto mb-4 shadow-lg shadow-amber-600/50" />
-                  <h3 className="font-serif text-white text-lg mb-2">Gustativa</h3>
-                  <p className="text-xs text-neutral-400 leading-relaxed font-light">
-                    Pieno, caldo e strutturato, con trama tannica setosa e un lungo finale persistente.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <!-- MODULO RICHIESTA CAMPIONATURE B2B -->
-          <section id="b2b" className="py-24 px-6 max-w-3xl mx-auto text-center">
-            <div className="p-8 sm:p-12 bg-dark-card border border-gold/20 rounded-3xl relative overflow-hidden shadow-2xl">
-              <div className="absolute -bottom-20 -right-20 w-60 h-60 bg-ruby/20 rounded-full blur-3xl pointer-events-none" />
-              
-              <h2 className="font-serif text-3xl text-white mb-2">Richiesta Campionature B2B</h2>
-              <p className="text-xs text-neutral-400 mb-8 font-light">Riservato a Ristoranti, Enoteche e Importatori di settore.</p>
-
-              {formStatus ? (
-                <div className="p-4 bg-gold/10 border border-gold/40 text-gold text-xs rounded-xl">
-                  {formStatus}
-                </div>
-              ) : (
-                <form onSubmit={handleFormSubmit} className="space-y-4 text-left">
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-[10px] uppercase tracking-widest text-neutral-400 mb-1">Nome e Cognome</label>
-                      <input type="text" required className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-4 py-2.5 text-xs text-white focus:outline-none focus:border-gold" />
-                    </div>
-                    <div>
-                      <label className="block text-[10px] uppercase tracking-widest text-neutral-400 mb-1">Ragione Sociale / P.IVA</label>
-                      <input type="text" required className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-4 py-2.5 text-xs text-white focus:outline-none focus:border-gold" />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-[10px] uppercase tracking-widest text-neutral-400 mb-1">Email Aziendale</label>
-                    <input type="email" required className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-4 py-2.5 text-xs text-white focus:outline-none focus:border-gold" />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] uppercase tracking-widest text-neutral-400 mb-1">Messaggio / Quantità Stimate</label>
-                    <textarea rows="3" className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-4 py-2.5 text-xs text-white focus:outline-none focus:border-gold" placeholder="Descrivi brevemente la tua attività e la quantità stimata..."></textarea>
-                  </div>
-                  <button type="submit" className="w-full py-3.5 bg-gold text-black font-semibold text-xs uppercase tracking-[0.2em] rounded-lg hover:bg-gold-light transition-all shadow-lg shadow-gold/10">
-                    Invia Richiesta Riservata
-                  </button>
-                </form>
-              )}
-            </div>
-          </section>
-
-          <!-- FOOTER -->
-          <footer className="py-12 border-t border-dark-border text-center text-xs text-neutral-600">
-            <p className="font-serif text-gold tracking-widest uppercase mb-2">Comes Ruber</p>
-            <p>© {new Date().getFullYear()} — Tutti i diritti riservati. Selezione Privata Graf Rosso.</p>
-          </footer>
-
-          <ELabelModal isOpen={isELabelOpen} onClose={() => setIsELabelOpen(false)} />
-        </div>
-      );
+    function closeELabel() {
+      document.getElementById('elabel-modal').classList.add('hidden');
     }
-
-    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    function submitB2BForm(e) {
+      e.preventDefault();
+      document.getElementById('b2b-form').classList.add('hidden');
+      document.getElementById('form-message').classList.remove('hidden');
+    }
   </script>
 </body>
 </html>
