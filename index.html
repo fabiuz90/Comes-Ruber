@@ -27,9 +27,9 @@
               dark: '#4A1B22',
             },
             dark: {
-              bg: '#080808',
-              card: '#121212',
-              border: '#222222',
+              bg: '#050505',
+              card: '#0D0D0D',
+              border: '#1A1A1A',
             }
           },
           fontFamily: {
@@ -37,12 +37,17 @@
             sans: ['Montserrat', 'sans-serif'],
           },
           animation: {
-            'pulse-glow': 'pulseGlow 4s ease-in-out infinite',
+            'pulse-glow': 'pulseGlow 5s ease-in-out infinite',
+            'float': 'float 6s ease-in-out infinite',
           },
           keyframes: {
             pulseGlow: {
-              '0%, 100%': { opacity: '0.2' },
-              '50%': { opacity: '0.5' }
+              '0%, 100%': { opacity: '0.15' },
+              '50%': { opacity: '0.45' }
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-8px)' }
             }
           }
         }
@@ -52,7 +57,7 @@
 
   <style>
     body {
-      background-color: #080808;
+      background-color: #050505;
       color: #e5e5e5;
       overflow-x: hidden;
     }
@@ -60,35 +65,45 @@
       width: 6px;
     }
     .custom-scrollbar::-webkit-scrollbar-track {
-      background: #080808;
+      background: #050505;
     }
     .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: #222;
+      background: #1a1a1a;
       border-radius: 3px;
     }
     .custom-scrollbar::-webkit-scrollbar-thumb:hover {
       background: #D4AF37;
+    }
+    .glass-card {
+      background: rgba(13, 13, 13, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+    }
+    .glass-card:hover {
+      border-color: rgba(212, 175, 55, 0.4);
+      box-shadow: 0 10px 40px -10px rgba(212, 175, 55, 0.15);
     }
   </style>
 </head>
 <body class="selection:bg-gold selection:text-black font-sans custom-scrollbar">
 
   <!-- AGE GATE OVERLAY -->
-  <div id="age-gate" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl">
-    <div class="max-w-md w-full bg-dark-card border border-gold/30 p-8 rounded-2xl text-center shadow-2xl relative overflow-hidden">
-      <div class="absolute -top-12 -left-12 w-32 h-32 bg-ruby/30 rounded-full blur-2xl pointer-events-none"></div>
-      <div class="text-gold text-2xl font-serif mb-2">♛</div>
-      <h2 class="font-serif text-2xl text-white tracking-widest uppercase mb-2">Comes Ruber</h2>
-      <p class="text-xs uppercase tracking-widest text-gold/80 mb-6">Verifica dell'Età</p>
+  <div id="age-gate" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-2xl">
+    <div class="max-w-md w-full glass-card p-8 sm:p-10 rounded-3xl text-center shadow-2xl relative overflow-hidden">
+      <div class="absolute -top-16 -left-16 w-36 h-36 bg-ruby/40 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="text-gold text-3xl font-serif mb-3 animate-float">♛</div>
+      <h2 class="font-serif text-2xl text-white tracking-[0.2em] uppercase mb-2">Comes Ruber</h2>
+      <p class="text-[10px] uppercase tracking-[0.3em] text-gold/80 mb-6 font-semibold">Accesso Riservato</p>
       
-      <p class="text-sm text-neutral-300 leading-relaxed mb-8">
-        Il contenuto di questo sito è riservato a persone che hanno raggiunto l'età legale per il consumo di bevande alcoliche nel proprio paese di residenza.
+      <p class="text-xs text-neutral-300 leading-relaxed mb-8 font-light">
+        Il contenuto di questo sito è riservato alle persone che hanno raggiunto l'età legale per il consumo di bevande alcoliche.
       </p>
 
       <div class="flex flex-col gap-3">
         <button
           onclick="document.getElementById('age-gate').style.display='none'"
-          class="w-full py-3.5 bg-gold text-black font-semibold text-xs uppercase tracking-[0.2em] rounded-full hover:bg-gold-light transition-all shadow-lg shadow-gold/10"
+          class="w-full py-4 bg-gold text-black font-semibold text-xs uppercase tracking-[0.25em] rounded-full hover:bg-gold-light transition-all shadow-xl shadow-gold/20 hover:scale-[1.02]"
         >
           Dichiaro di avere 18+ anni
         </button>
@@ -102,244 +117,455 @@
     </div>
   </div>
 
-  <!-- HEADER / NAVIGATION CON MENU MOBILE -->
-  <header class="fixed top-0 left-0 right-0 z-40 backdrop-blur-xl border-b border-white/5 bg-dark-bg/70">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="#" class="font-serif text-lg tracking-[0.3em] uppercase text-gold font-bold">
-        Comes Ruber
+  <!-- HEADER / NAVIGATION -->
+  <header class="fixed top-0 left-0 right-0 z-40 backdrop-blur-xl border-b border-white/5 bg-black/60 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#" class="font-serif text-lg tracking-[0.3em] uppercase text-gold font-bold flex items-center gap-2">
+        <span class="text-gold text-sm">♛</span> Comes Ruber
       </a>
       
       <!-- Nav Desktop -->
-      <nav class="hidden md:flex gap-8 text-xs uppercase tracking-[0.2em] text-neutral-400">
+      <nav class="hidden md:flex gap-8 text-xs uppercase tracking-[0.2em] text-neutral-400 font-medium">
         <a href="#hero" class="hover:text-gold transition-colors">Visione</a>
-        <a href="#heritage" class="hover:text-gold transition-colors">Storia & Terroir</a>
+        <a href="#heritage" class="hover:text-gold transition-colors">Terroir</a>
+        <a href="#process" class="hover:text-gold transition-colors">Artigianalità</a>
         <a href="#tasting" class="hover:text-gold transition-colors">Degustazione</a>
+        <a href="#awards" class="hover:text-gold transition-colors">Riconoscimenti</a>
         <a href="#b2b" class="hover:text-gold transition-colors">Area B2B</a>
-        <button onclick="openELabel()" class="text-gold hover:underline">E-Label UE</button>
       </nav>
 
-      <!-- Pulsante Menu Mobile -->
-      <button onclick="toggleMobileMenu()" class="md:hidden text-gold text-xl focus:outline-none">
+      <div class="hidden md:flex items-center gap-4">
+        <button onclick="openELabel()" class="px-4 py-2 border border-gold/30 rounded-full text-gold text-[10px] uppercase tracking-[0.2em] hover:bg-gold hover:text-black transition-all">
+          E-Label UE
+        </button>
+      </div>
+
+      <!-- Mobile Button -->
+      <button onclick="toggleMobileMenu()" class="md:hidden text-gold text-2xl focus:outline-none">
         ☰
       </button>
     </div>
 
-    <!-- Dropdown Menu Mobile -->
-    <div id="mobile-menu" class="hidden md:hidden bg-dark-card border-b border-gold/20 px-6 py-4 flex flex-col gap-4 text-xs uppercase tracking-[0.2em] text-neutral-300">
+    <!-- Mobile Dropdown -->
+    <div id="mobile-menu" class="hidden md:hidden bg-dark-card border-b border-gold/20 px-6 py-6 flex flex-col gap-4 text-xs uppercase tracking-[0.2em] text-neutral-300">
       <a href="#hero" onclick="toggleMobileMenu()" class="hover:text-gold">Visione</a>
-      <a href="#heritage" onclick="toggleMobileMenu()" class="hover:text-gold">Storia & Terroir</a>
+      <a href="#heritage" onclick="toggleMobileMenu()" class="hover:text-gold">Terroir</a>
+      <a href="#process" onclick="toggleMobileMenu()" class="hover:text-gold">Artigianalità</a>
       <a href="#tasting" onclick="toggleMobileMenu()" class="hover:text-gold">Degustazione</a>
+      <a href="#awards" onclick="toggleMobileMenu()" class="hover:text-gold">Riconoscimenti</a>
       <a href="#b2b" onclick="toggleMobileMenu()" class="hover:text-gold">Area B2B</a>
-      <button onclick="openELabel(); toggleMobileMenu();" class="text-gold text-left">E-Label UE</button>
+      <button onclick="openELabel(); toggleMobileMenu();" class="text-gold text-left font-bold pt-2">E-Label UE →</button>
     </div>
   </header>
 
-  <!-- HERO CINEMATOGRAFICA CON IMMAGINE 16:9 4K (TESTI A SINISTRA) -->
-  <section id="hero" class="relative min-h-screen flex flex-col justify-center items-center overflow-hidden pt-24 pb-12 border-b border-gold/20">
-    <div class="relative w-full max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="relative aspect-video w-full rounded-2xl overflow-hidden border border-gold/30 shadow-[0_0_50px_rgba(0,0,0,0.9)]">
+  <!-- HERO CINEMATOGRAFICA CON 16:9 HERO.PNG E TESTI SULLA SINISTRA -->
+  <section id="hero" class="relative min-h-screen flex flex-col justify-center items-center overflow-hidden pt-24 pb-12">
+    
+    <div class="relative w-full max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="relative aspect-video w-full rounded-3xl overflow-hidden border border-gold/30 shadow-[0_0_80px_rgba(0,0,0,0.95)] group">
         
+        <!-- Immagine hero caricata su GitHub -->
         <img 
           src="hero.png" 
-          alt="Comes Ruber - Selezione Privata 4K" 
-          class="w-full h-full object-cover"
+          alt="Comes Ruber - Selezione Privata" 
+          class="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-transform duration-1000 ease-out"
         />
 
-        <div class="absolute inset-0 bg-gradient-to-r from-black/85 via-black/40 to-transparent pointer-events-none"></div>
-        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/30 pointer-events-none"></div>
-        <div class="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-1/2 h-1/2 bg-gold/10 blur-[90px] rounded-full pointer-events-none animate-pulse-glow"></div>
+        <!-- Sfocature e Gradienti per la massima leggibilità -->
+        <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent pointer-events-none"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-black/40 pointer-events-none"></div>
 
-        <div class="absolute inset-0 z-10 flex flex-col justify-center p-8 sm:p-12 md:p-16 text-left items-start max-w-xl">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-gold/40 bg-black/70 backdrop-blur-md text-gold text-[10px] sm:text-xs tracking-[0.25em] uppercase shadow-2xl mb-4">
-            <span>♛</span> Selezione Privata · 2023
+        <!-- Glow d'atmosfera dorata -->
+        <div class="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-gold/15 blur-[120px] rounded-full pointer-events-none animate-pulse-glow"></div>
+
+        <!-- Contenuti Sinistra -->
+        <div class="absolute inset-0 z-10 flex flex-col justify-center p-8 sm:p-14 md:p-20 text-left items-start max-w-2xl">
+          
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/40 bg-black/80 backdrop-blur-md text-gold text-[10px] sm:text-xs tracking-[0.3em] uppercase shadow-2xl mb-6">
+            <span>♛</span> Selezione Privata · Annata 2023
           </div>
 
-          <h1 class="font-serif text-3xl sm:text-5xl md:text-6xl font-normal text-white tracking-[0.15em] uppercase drop-shadow-2xl leading-tight">
+          <h1 class="font-serif text-3xl sm:text-6xl md:text-7xl font-normal text-white tracking-[0.15em] uppercase drop-shadow-2xl leading-tight">
             Comes Ruber
           </h1>
-          <p class="font-serif italic text-gold text-base sm:text-xl mt-2 mb-8 tracking-widest drop-shadow-md">
+          <p class="font-serif italic text-gold text-lg sm:text-2xl mt-2 mb-8 tracking-widest drop-shadow-md">
             "Il Conte Rosso"
           </p>
 
-          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
+          <p class="text-xs sm:text-sm text-neutral-300 font-light leading-relaxed mb-8 max-w-lg hidden sm:block">
+            Un capolavoro enologico a tiratura limitata. Nobile struttura, tannini setosi ed un'eleganza senza tempo racchiusa in ogni bottiglia.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto">
             <a
               href="#tasting"
-              class="px-6 py-3 bg-gold text-black text-[11px] font-semibold uppercase tracking-[0.2em] hover:bg-gold-light transition-all rounded-full shadow-2xl text-center"
+              class="px-8 py-3.5 bg-gold text-black text-xs font-semibold uppercase tracking-[0.25em] hover:bg-gold-light transition-all rounded-full shadow-2xl shadow-gold/20 text-center hover:scale-105"
             >
               Note Degustazione
             </a>
             <button
               onclick="openELabel()"
-              class="px-6 py-3 bg-black/60 backdrop-blur-md border border-gold/50 text-gold text-[11px] font-semibold uppercase tracking-[0.2em] hover:bg-gold/20 transition-all rounded-full text-center"
+              class="px-8 py-3.5 bg-black/60 backdrop-blur-md border border-gold/50 text-gold text-xs font-semibold uppercase tracking-[0.25em] hover:bg-gold/20 transition-all rounded-full text-center hover:scale-105"
             >
               Consulta E-Label
             </button>
           </div>
+
         </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- HIGHLIGHTS BAR / NUMERI DI PRESTIGIO -->
+  <section class="py-12 border-y border-dark-border bg-dark-card/30 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <div class="space-y-1">
+        <p class="font-serif text-3xl text-gold">3.200</p>
+        <p class="text-[10px] uppercase tracking-[0.2em] text-neutral-400">Bottiglie Prodotte</p>
+      </div>
+      <div class="space-y-1">
+        <p class="font-serif text-3xl text-gold">18 Mesi</p>
+        <p class="text-[10px] uppercase tracking-[0.2em] text-neutral-400">Affinamento Rovere</p>
+      </div>
+      <div class="space-y-1">
+        <p class="font-serif text-3xl text-gold">14.5%</p>
+        <p class="text-[10px] uppercase tracking-[0.2em] text-neutral-400">Vol. Alcolico</p>
+      </div>
+      <div class="space-y-1">
+        <p class="font-serif text-3xl text-gold">95 / 100</p>
+        <p class="text-[10px] uppercase tracking-[0.2em] text-neutral-400">Punteggio Decanter</p>
       </div>
     </div>
   </section>
 
-  <!-- NUOVA SEZIONE: STORIA, TERROIR E SCHEDA TECNICA -->
-  <section id="heritage" class="py-24 px-6 max-w-6xl mx-auto border-b border-dark-border">
-    <div class="grid md:grid-cols-2 gap-12 items-center">
-      <div>
-        <span class="text-gold text-xs uppercase tracking-[0.3em] font-semibold block mb-2">Eredità & Origine</span>
-        <h2 class="font-serif text-3xl sm:text-4xl text-white mb-6 leading-tight">
-          L'Anima del Conte Rosso
+  <!-- SEZIONE HERITAGE & TERROIR CON IMMAGINE UNSPLASH -->
+  <section id="heritage" class="py-28 px-6 max-w-7xl mx-auto">
+    <div class="grid md:grid-cols-2 gap-16 items-center">
+      
+      <!-- Immagine Unsplash Vigneto -->
+      <div class="relative group">
+        <div class="absolute -inset-2 bg-gradient-to-r from-ruby to-gold rounded-3xl blur-2xl opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+        <div class="relative rounded-2xl overflow-hidden border border-gold/30 shadow-2xl aspect-[4/5]">
+          <img 
+            src="https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?q=80&w=1200&auto=format&fit=crop" 
+            alt="Vigneti della Cantina" 
+            class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+          <div class="absolute bottom-6 left-6 right-6">
+            <span class="text-gold text-[10px] uppercase tracking-[0.3em] font-semibold">Terroir Unico</span>
+            <p class="text-white font-serif text-xl mt-1">L'Equilibrio Perfetto tra Suolo e Clima</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testi -->
+      <div class="space-y-6">
+        <span class="text-gold text-xs uppercase tracking-[0.3em] font-semibold block">Radici & Passione</span>
+        <h2 class="font-serif text-3xl sm:text-5xl text-white leading-tight">
+          La Poesia della Terra nei Calici di Lusso
         </h2>
-        <p class="text-xs sm:text-sm text-neutral-400 leading-relaxed font-light mb-6">
-          Nato nel cuore di vigneti storici ad alta vocazione, Comes Ruber è il frutto di una rigorosa selezione manuale dei migliori grappoli. L'affinamento prolungato in botti d'avorio e rovere dona una struttura inconfondibile, pensata per evolvere nel tempo con grazia e carattere.
+        <p class="text-xs sm:text-sm text-neutral-400 leading-relaxed font-light">
+          Ogni grappolo di <strong class="text-white">Comes Ruber</strong> nasce da una vigna secolare adagiata su colline baciate dal sole e accarezzate dalle escursioni termiche notturne. Questo terroir straordinario dona al vino una complessità aromatica ed una longevità eccezionali.
         </p>
-        
-        <!-- Dettagli Scheda Tecnica -->
-        <div class="grid grid-cols-2 gap-4 pt-4 border-t border-dark-border text-xs">
-          <div>
-            <span class="text-neutral-500 block uppercase tracking-wider text-[10px]">Affinamento</span>
-            <span class="text-white font-medium">18 Mesi in Rovere</span>
+
+        <!-- Grid Dettagli Tecnici -->
+        <div class="grid grid-cols-2 gap-6 pt-6 border-t border-dark-border text-xs">
+          <div class="p-4 rounded-xl bg-dark-card border border-neutral-800">
+            <span class="text-gold block font-serif text-lg mb-1">Vendemmia</span>
+            <span class="text-neutral-300 font-light text-[11px]">Rigorosamente manuale in cassette da 15kg</span>
           </div>
-          <div>
-            <span class="text-neutral-500 block uppercase tracking-wider text-[10px]">Gradazione</span>
-            <span class="text-white font-medium">14.5% Vol.</span>
+          <div class="p-4 rounded-xl bg-dark-card border border-neutral-800">
+            <span class="text-gold block font-serif text-lg mb-1">Suolo</span>
+            <span class="text-neutral-300 font-light text-[11px]">Marna calcarea ricca di minerali nobili</span>
           </div>
-          <div>
-            <span class="text-neutral-500 block uppercase tracking-wider text-[10px]">Temp. Servizio</span>
-            <span class="text-white font-medium">16°C - 18°C</span>
+          <div class="p-4 rounded-xl bg-dark-card border border-neutral-800">
+            <span class="text-gold block font-serif text-lg mb-1">Servizio</span>
+            <span class="text-neutral-300 font-light text-[11px]">Temperatura ideale tra 16°C e 18°C</span>
           </div>
-          <div>
-            <span class="text-neutral-500 block uppercase tracking-wider text-[10px]">Potenziale Invecchiamento</span>
-            <span class="text-white font-medium">10-15 Anni</span>
+          <div class="p-4 rounded-xl bg-dark-card border border-neutral-800">
+            <span class="text-gold block font-serif text-lg mb-1">Longevità</span>
+            <span class="text-neutral-300 font-light text-[11px]">Oltre 15 anni in cantina termoregolata</span>
           </div>
         </div>
       </div>
 
-      <!-- Scheda Elegante / Box In rilievo -->
-      <div class="p-8 rounded-2xl bg-dark-card border border-gold/20 shadow-2xl relative overflow-hidden">
-        <div class="absolute -top-10 -right-10 w-40 h-40 bg-gold/10 rounded-full blur-3xl pointer-events-none"></div>
-        <h3 class="font-serif text-gold text-xl mb-4 text-center">In Simbiosi con la Terra</h3>
-        <p class="text-xs text-neutral-300 leading-relaxed text-center font-light mb-6">
-          Ogni annata rispecchia fedelmente il microclima e la composizione minerale del terreno, mantenendo un perfetto equilibrio tra freschezza, tannini e persistenza aromatica.
+    </div>
+  </section>
+
+  <!-- PROCESSO DI PRODUZIONE (TIMELINE FOTOGRAFICA) -->
+  <section id="process" class="py-24 px-6 bg-dark-card/50 border-y border-dark-border">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-gold text-xs uppercase tracking-[0.3em] font-semibold">Dalla Vite alla Bottiglia</span>
+        <h2 class="font-serif text-3xl sm:text-4xl text-white mt-2">L'Arte della Vinificazione</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        
+        <!-- Step 1 -->
+        <div class="glass-card rounded-2xl overflow-hidden group transition-all duration-500">
+          <div class="h-48 overflow-hidden relative">
+            <img 
+              src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?q=80&w=800&auto=format&fit=crop" 
+              alt="Selezione Uva" 
+              class="w-full h-full object-cover group-hover:scale-110 transition duration-700"
+            />
+            <div class="absolute top-4 left-4 w-8 h-8 rounded-full bg-gold text-black font-serif font-bold flex items-center justify-center text-xs">1</div>
+          </div>
+          <div class="p-6">
+            <h3 class="font-serif text-white text-lg mb-2">1. Selezione Rigorosa</h3>
+            <p class="text-xs text-neutral-400 leading-relaxed font-light">
+              I grappoli vengono selezionati a mano per tre volte per garantire che solo gli acini perfetti entrino in fermentazione.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="glass-card rounded-2xl overflow-hidden group transition-all duration-500">
+          <div class="h-48 overflow-hidden relative">
+            <img 
+              src="https://images.unsplash.com/photo-1528823872057-9c018a7a7553?q=80&w=800&auto=format&fit=crop" 
+              alt="Botti di Rovere" 
+              class="w-full h-full object-cover group-hover:scale-110 transition duration-700"
+            />
+            <div class="absolute top-4 left-4 w-8 h-8 rounded-full bg-gold text-black font-serif font-bold flex items-center justify-center text-xs">2</div>
+          </div>
+          <div class="p-6">
+            <h3 class="font-serif text-white text-lg mb-2">2. Affinamento in Rovere</h3>
+            <p class="text-xs text-neutral-400 leading-relaxed font-light">
+              Maturazione lenta per 18 mesi in barrique di rovere francese a tostatura media per donare complessità e rotondità.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="glass-card rounded-2xl overflow-hidden group transition-all duration-500">
+          <div class="h-48 overflow-hidden relative">
+            <img 
+              src="https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?q=80&w=800&auto=format&fit=crop" 
+              alt="Calice di Vino" 
+              class="w-full h-full object-cover group-hover:scale-110 transition duration-700"
+            />
+            <div class="absolute top-4 left-4 w-8 h-8 rounded-full bg-gold text-black font-serif font-bold flex items-center justify-center text-xs">3</div>
+          </div>
+          <div class="p-6">
+            <h3 class="font-serif text-white text-lg mb-2">3. Riposo in Bottiglia</h3>
+            <p class="text-xs text-neutral-400 leading-relaxed font-light">
+              Almeno 6 mesi di affinamento in bottiglia in ambiente controllato prima del rilascio sul mercato.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- DEGUSTAZIONE & ABBINAMENTI CON VISUALE UNSPLASH -->
+  <section id="tasting" class="py-28 px-6 max-w-7xl mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <span class="text-gold text-xs uppercase tracking-[0.3em] font-semibold">Esperienza Sensoriale</span>
+      <h2 class="font-serif text-3xl sm:text-5xl text-white mt-2">Profilo Organolettico</h2>
+    </div>
+
+    <!-- 3 Card Sensory -->
+    <div class="grid sm:grid-cols-3 gap-8 mb-16">
+      <div class="glass-card p-8 rounded-3xl text-center relative overflow-hidden group hover:-translate-y-2 transition-all">
+        <div class="w-12 h-12 rounded-full bg-ruby/30 border border-ruby mx-auto mb-6 flex items-center justify-center text-ruby shadow-lg shadow-ruby/30">👁</div>
+        <h3 class="font-serif text-white text-xl mb-3">Esame Visivo</h3>
+        <p class="text-xs text-neutral-400 leading-relaxed font-light">
+          Rosso rubino impenetrabile con sfumature violacee in gioventù che evolvono verso il granato nobile con l'invecchiamento.
         </p>
-        <div class="text-center">
-          <span class="inline-block px-4 py-2 border border-gold/30 rounded-full text-[10px] text-gold uppercase tracking-[0.2em]">Edizione Limitata Numerata</span>
+      </div>
+
+      <div class="glass-card p-8 rounded-3xl text-center relative overflow-hidden group hover:-translate-y-2 transition-all">
+        <div class="w-12 h-12 rounded-full bg-gold/20 border border-gold mx-auto mb-6 flex items-center justify-center text-gold shadow-lg shadow-gold/30">👃</div>
+        <h3 class="font-serif text-white text-xl mb-3">Esame Olfattivo</h3>
+        <p class="text-xs text-neutral-400 leading-relaxed font-light">
+          Bouquet intenso e complesso: amarena, mora di rovo, vaniglia, tabacco dolce, pepe nero e sottili note balsamiche.
+        </p>
+      </div>
+
+      <div class="glass-card p-8 rounded-3xl text-center relative overflow-hidden group hover:-translate-y-2 transition-all">
+        <div class="w-12 h-12 rounded-full bg-amber-600/20 border border-amber-600 mx-auto mb-6 flex items-center justify-center text-amber-500 shadow-lg shadow-amber-600/30">🍷</div>
+        <h3 class="font-serif text-white text-xl mb-3">Esame Gustativo</h3>
+        <p class="text-xs text-neutral-400 leading-relaxed font-light">
+          Ingresso caldo e avvolgente. Tannini di straordinaria fattura, equilibrata acidità ed un finale infinitamente lungo e persistente.
+        </p>
+      </div>
+    </div>
+
+    <!-- Banner Abbinamenti Gastronomici -->
+    <div class="relative rounded-3xl overflow-hidden border border-gold/30 shadow-2xl">
+      <img 
+        src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1200&auto=format&fit=crop" 
+        alt="Abbinamenti Gastronomici" 
+        class="w-full h-80 object-cover"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-black/95 via-black/80 to-transparent flex items-center p-8 sm:p-14">
+        <div class="max-w-xl space-y-4">
+          <span class="text-gold text-xs uppercase tracking-[0.3em] font-semibold">Alta Gastronomia</span>
+          <h3 class="font-serif text-2xl sm:text-3xl text-white">Abbinamenti d'Eccellenza</h3>
+          <p class="text-xs sm:text-sm text-neutral-300 font-light leading-relaxed">
+            Si sposa sublimemente con carni rosse alla brace, brasati al vino nobile, selvaggina da pelo, piatti a base di tartufo nero e formaggi stagionati d'alpeggio.
+          </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SEZIONE DEGUSTAZIONE & PAIRING -->
-  <section id="tasting" class="py-24 px-6 bg-dark-card/40 border-b border-dark-border">
-    <div class="max-w-4xl mx-auto text-center">
-      <h2 class="font-serif text-3xl sm:text-4xl text-white mb-4 tracking-wider">
-        Profilo Organolettico
-      </h2>
-      <p class="text-xs text-neutral-400 mb-16 max-w-xl mx-auto font-light">
-        Un'esperienza sensoriale avvolgente guidata dall'armonia tra frutti rossi, spezie e note boisé.
+  <!-- REVISIONI & AWARDS -->
+  <section id="awards" class="py-24 px-6 bg-dark-card/40 border-y border-dark-border">
+    <div class="max-w-6xl mx-auto text-center">
+      <span class="text-gold text-xs uppercase tracking-[0.3em] font-semibold">Critica Internazionale</span>
+      <h2 class="font-serif text-3xl sm:text-4xl text-white mt-2 mb-16">Premi & Riconoscimenti</h2>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="glass-card p-8 rounded-2xl relative text-left">
+          <div class="text-gold text-xl mb-2">★★★★★</div>
+          <p class="text-xs text-neutral-300 italic mb-6 leading-relaxed">
+            "Comes Ruber dimostra una precisione stilistica rara. Un vino rosso maestoso che incarna il potenziale massimo del suo territorio."
+          </p>
+          <div class="border-t border-neutral-800 pt-4 flex items-center justify-between">
+            <span class="font-serif text-white text-sm">Decanter Magazine</span>
+            <span class="text-gold font-bold text-xs">95 Punti</span>
+          </div>
+        </div>
+
+        <div class="glass-card p-8 rounded-2xl relative text-left">
+          <div class="text-gold text-xl mb-2">★★★★★</div>
+          <p class="text-xs text-neutral-300 italic mb-6 leading-relaxed">
+            "Struttura imponente, tannini di seta e un finale lungo e speziato. Uno dei migliori rossi della stagione 2026."
+          </p>
+          <div class="border-t border-neutral-800 pt-4 flex items-center justify-between">
+            <span class="font-serif text-white text-sm">James Suckling</span>
+            <span class="text-gold font-bold text-xs">94 Punti</span>
+          </div>
+        </div>
+
+        <div class="glass-card p-8 rounded-2xl relative text-left">
+          <div class="text-gold text-xl mb-2">★★★★★</div>
+          <p class="text-xs text-neutral-300 italic mb-6 leading-relaxed">
+            "Armonia perfetta. La gestione del rovere è magistrale, preservando la freschezza e la mineralità del frutto originale."
+          </p>
+          <div class="border-t border-neutral-800 pt-4 flex items-center justify-between">
+            <span class="font-serif text-white text-sm">Gambero Rosso</span>
+            <span class="text-gold font-bold text-xs">Tre Bicchieri</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULO RICHIESTA B2B & DEGUSTAZIONE VIP -->
+  <section id="b2b" class="py-28 px-6 max-w-4xl mx-auto text-center">
+    <div class="glass-card p-8 sm:p-14 rounded-3xl relative overflow-hidden shadow-2xl">
+      <div class="absolute -bottom-20 -right-20 w-72 h-72 bg-ruby/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -top-20 -left-20 w-72 h-72 bg-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <span class="text-gold text-xs uppercase tracking-[0.3em] font-semibold block mb-2">Area Riservata Professionals</span>
+      <h2 class="font-serif text-3xl sm:text-4xl text-white mb-3">Richiesta Campionature & B2B</h2>
+      <p class="text-xs text-neutral-400 mb-10 font-light max-w-xl mx-auto">
+        Canale dedicato a Ristoranti Stellati, Enoteche d'Élite, Sommelier e Importatori Internazionali.
       </p>
 
-      <div class="grid sm:grid-cols-3 gap-8 mb-16">
-        <div class="p-8 rounded-2xl border border-dark-border bg-dark-bg/60 relative overflow-hidden">
-          <div class="w-3 h-3 rounded-full bg-ruby mx-auto mb-4 shadow-lg shadow-ruby/50"></div>
-          <h3 class="font-serif text-white text-lg mb-2">Visiva</h3>
-          <p class="text-xs text-neutral-400 leading-relaxed font-light">
-            Rosso rubino profondo con eleganti rifrazioni granate sull’unghia del calice.
-          </p>
-        </div>
-
-        <div class="p-8 rounded-2xl border border-dark-border bg-dark-bg/60 relative overflow-hidden">
-          <div class="w-3 h-3 rounded-full bg-gold mx-auto mb-4 shadow-lg shadow-gold/50"></div>
-          <h3 class="font-serif text-white text-lg mb-2">Olfattiva</h3>
-          <p class="text-xs text-neutral-400 leading-relaxed font-light">
-            Bouquet avvolgente di frutti di bosco, prugna matura, vaniglia e spezie nobili.
-          </p>
-        </div>
-
-        <div class="p-8 rounded-2xl border border-dark-border bg-dark-bg/60 relative overflow-hidden">
-          <div class="w-3 h-3 rounded-full bg-amber-600 mx-auto mb-4 shadow-lg shadow-amber-600/50"></div>
-          <h3 class="font-serif text-white text-lg mb-2">Gustativa</h3>
-          <p class="text-xs text-neutral-400 leading-relaxed font-light">
-            Pieno, caldo e strutturato, con trama tannica setosa e un lungo finale persistente.
-          </p>
-        </div>
+      <div id="form-message" class="hidden p-4 mb-6 bg-gold/10 border border-gold/40 text-gold text-xs rounded-2xl">
+        Richiesta inviata con successo. Il nostro sommelier referenziato B2B vi contatterà entro 24 ore.
       </div>
 
-      <!-- NUOVO: ABBINAMENTI GASTRONOMICI -->
-      <div class="p-6 rounded-xl border border-gold/20 bg-dark-card/80 max-w-2xl mx-auto">
-        <span class="text-gold text-[10px] uppercase tracking-[0.3em] font-semibold block mb-2">Abbinamenti Consigliati</span>
-        <p class="text-xs text-neutral-300 font-light">
-          Carni rosse frollate, stufati ricchi, selvaggina da pelo, risotto al castelmagno e formaggi stagionati a pasta dura.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- MODULO RICHIESTA CAMPIONATURE B2B -->
-  <section id="b2b" class="py-24 px-6 max-w-3xl mx-auto text-center">
-    <div class="p-8 sm:p-12 bg-dark-card border border-gold/20 rounded-3xl relative overflow-hidden shadow-2xl">
-      <div class="absolute -bottom-20 -right-20 w-60 h-60 bg-ruby/20 rounded-full blur-3xl pointer-events-none"></div>
-      
-      <h2 class="font-serif text-3xl text-white mb-2">Richiesta Campionature B2B</h2>
-      <p class="text-xs text-neutral-400 mb-8 font-light">Riservato a Ristoranti, Enoteche e Importatori di settore.</p>
-
-      <div id="form-message" class="hidden p-4 mb-4 bg-gold/10 border border-gold/40 text-gold text-xs rounded-xl">
-        Richiesta inviata con successo. Un nostro referente ti risponderà entro 24 ore.
-      </div>
-
-      <form id="b2b-form" onsubmit="submitB2BForm(event)" class="space-y-4 text-left">
-        <div class="grid sm:grid-cols-2 gap-4">
+      <form id="b2b-form" onsubmit="submitB2BForm(event)" class="space-y-5 text-left">
+        <div class="grid sm:grid-cols-2 gap-5">
           <div>
-            <label class="block text-[10px] uppercase tracking-widest text-neutral-400 mb-1">Nome e Cognome</label>
-            <input type="text" required class="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-4 py-2.5 text-xs text-white focus:outline-none focus:border-gold" />
+            <label class="block text-[10px] uppercase tracking-widest text-neutral-400 mb-2">Nome e Cognome</label>
+            <input type="text" required class="w-full bg-black/60 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-gold transition-colors" placeholder="Es. Mario Rossi" />
           </div>
           <div>
-            <label class="block text-[10px] uppercase tracking-widest text-neutral-400 mb-1">Ragione Sociale / P.IVA</label>
-            <input type="text" required class="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-4 py-2.5 text-xs text-white focus:outline-none focus:border-gold" />
+            <label class="block text-[10px] uppercase tracking-widest text-neutral-400 mb-2">Ragione Sociale / P.IVA</label>
+            <input type="text" required class="w-full bg-black/60 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-gold transition-colors" placeholder="Es. Ristorante L'Eccellenza" />
+          </div>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div>
+            <label class="block text-[10px] uppercase tracking-widest text-neutral-400 mb-2">Email Aziendale</label>
+            <input type="email" required class="w-full bg-black/60 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-gold transition-colors" placeholder="mario@ristorante.com" />
+          </div>
+          <div>
+            <label class="block text-[10px] uppercase tracking-widest text-neutral-400 mb-2">Telefono / Whatsapp</label>
+            <input type="tel" required class="w-full bg-black/60 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-gold transition-colors" placeholder="+39 333 1234567" />
           </div>
         </div>
         <div>
-          <label class="block text-[10px] uppercase tracking-widest text-neutral-400 mb-1">Email Aziendale</label>
-          <input type="email" required class="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-4 py-2.5 text-xs text-white focus:outline-none focus:border-gold" />
+          <label class="block text-[10px] uppercase tracking-widest text-neutral-400 mb-2">Tipologia Richiesta</label>
+          <select class="w-full bg-black/60 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-gold transition-colors">
+            <option>Richiesta Campionatura B2B</option>
+            <option>Listino Prezzi & Allocazione Annata 2023</option>
+            <option>Prenotazione Degustazione Privata in Cantina</option>
+          </select>
         </div>
         <div>
-          <label class="block text-[10px] uppercase tracking-widest text-neutral-400 mb-1">Messaggio / Quantità Stimate</label>
-          <textarea rows="3" class="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-4 py-2.5 text-xs text-white focus:outline-none focus:border-gold" placeholder="Descrivi la tua attività e i volumi previsti..."></textarea>
+          <label class="block text-[10px] uppercase tracking-widest text-neutral-400 mb-2">Messaggio</label>
+          <textarea rows="3" class="w-full bg-black/60 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-gold transition-colors" placeholder="Indicare i volumi presunti o richieste particolari..."></textarea>
         </div>
-        <button type="submit" class="w-full py-3.5 bg-gold text-black font-semibold text-xs uppercase tracking-[0.2em] rounded-lg hover:bg-gold-light transition-all shadow-lg shadow-gold/10">
+        <button type="submit" class="w-full py-4 bg-gold text-black font-semibold text-xs uppercase tracking-[0.25em] rounded-xl hover:bg-gold-light transition-all shadow-xl shadow-gold/10 hover:scale-[1.01]">
           Invia Richiesta Riservata
         </button>
       </form>
     </div>
   </section>
 
-  <!-- FOOTER AGGIORNATO CON CONTATTI E LINK -->
-  <footer class="py-12 border-t border-dark-border text-center text-xs text-neutral-500 bg-black">
-    <div class="max-w-4xl mx-auto px-6 grid sm:grid-cols-3 gap-8 mb-8 text-left">
-      <div>
-        <p class="font-serif text-gold tracking-widest uppercase font-bold mb-2">Comes Ruber</p>
-        <p class="text-[11px] leading-relaxed">Selezione Privata Graf Rosso. Eccellenza enologica riservata a intenditori e ristorazione d'élite.</p>
+  <!-- FOOTER -->
+  <footer class="py-16 border-t border-dark-border text-xs text-neutral-500 bg-black">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-4 gap-10 text-left mb-12">
+      <div class="space-y-3">
+        <p class="font-serif text-gold tracking-widest uppercase font-bold text-sm">Comes Ruber</p>
+        <p class="text-[11px] leading-relaxed font-light">
+          Selezione Privata Graf Rosso. Un’opera d'arte enologica concepita per celebrare l'eccellenza e il tempo.
+        </p>
       </div>
+
       <div>
-        <p class="text-white uppercase tracking-wider text-[11px] mb-2 font-semibold">Contatti</p>
+        <p class="text-white uppercase tracking-wider text-[11px] mb-3 font-semibold">Navigazione</p>
+        <ul class="space-y-2 text-[11px]">
+          <li><a href="#hero" class="hover:text-gold transition-colors">Visione</a></li>
+          <li><a href="#heritage" class="hover:text-gold transition-colors">Terroir</a></li>
+          <li><a href="#tasting" class="hover:text-gold transition-colors">Degustazione</a></li>
+          <li><a href="#awards" class="hover:text-gold transition-colors">Riconoscimenti</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="text-white uppercase tracking-wider text-[11px] mb-3 font-semibold">Contatti Direct</p>
         <p class="text-[11px] leading-relaxed">Email: info@comesruber.com</p>
-        <p class="text-[11px] leading-relaxed">Servizio B2B: +39 0123 456789</p>
+        <p class="text-[11px] leading-relaxed">Linea B2B: +39 0123 456789</p>
+        <p class="text-[11px] leading-relaxed mt-2 text-neutral-400">Tenuta Comes Ruber, Italia</p>
       </div>
+
       <div>
-        <p class="text-white uppercase tracking-wider text-[11px] mb-2 font-semibold">Legal & Compliance</p>
-        <button onclick="openELabel()" class="text-gold text-[11px] hover:underline block mb-1">E-Label Reg. UE 2021/2117</button>
-        <p class="text-[10px] text-neutral-600">Bevi responsabilmente.</p>
+        <p class="text-white uppercase tracking-wider text-[11px] mb-3 font-semibold">Conformità Legale</p>
+        <button onclick="openELabel()" class="text-gold text-[11px] hover:underline block mb-2">E-Label Reg. UE 2021/2117</button>
+        <p class="text-[10px] text-neutral-600 leading-relaxed">
+          Bevi responsabilmente. La vendita di alcolici è vietata ai minori di 18 anni.
+        </p>
       </div>
     </div>
-    <div class="border-t border-neutral-900 pt-6">
+
+    <div class="border-t border-neutral-900 max-w-6xl mx-auto px-6 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px]">
       <p>© 2026 Comes Ruber — Tutti i diritti riservati.</p>
+      <div class="flex gap-6 text-neutral-600">
+        <a href="#" class="hover:text-neutral-400">Privacy Policy</a>
+        <a href="#" class="hover:text-neutral-400">Cookie Policy</a>
+        <a href="#" class="hover:text-neutral-400">Termini B2B</a>
+      </div>
     </div>
   </footer>
 
   <!-- MODAL E-LABEL UE -->
-  <div id="elabel-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
-    <div class="relative w-full max-w-lg bg-dark-card border border-gold/30 rounded-2xl p-6 sm:p-8 shadow-2xl text-left">
+  <div id="elabel-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
+    <div class="relative w-full max-w-lg glass-card rounded-3xl p-6 sm:p-8 shadow-2xl text-left">
       <button 
         onclick="closeELabel()"
-        class="absolute top-4 right-4 text-neutral-400 hover:text-white transition-colors"
+        class="absolute top-4 right-4 text-neutral-400 hover:text-white transition-colors text-lg"
       >
         ✕
       </button>
@@ -376,15 +602,15 @@
           Smaltimento Imballaggio
         </div>
         <div class="grid grid-cols-3 gap-2 text-[11px] text-center">
-          <div class="p-2.5 bg-neutral-900/80 rounded-lg border border-neutral-800">
+          <div class="p-3 bg-black/60 rounded-xl border border-neutral-800">
             <div class="font-bold text-white">GL 70</div>
             <div class="text-neutral-500 mt-0.5">Bottiglia Vetro</div>
           </div>
-          <div class="p-2.5 bg-neutral-900/80 rounded-lg border border-neutral-800">
+          <div class="p-3 bg-black/60 rounded-xl border border-neutral-800">
             <div class="font-bold text-white">FOR 50</div>
             <div class="text-neutral-500 mt-0.5">Tappo Sughero</div>
           </div>
-          <div class="p-2.5 bg-neutral-900/80 rounded-lg border border-neutral-800">
+          <div class="p-3 bg-black/60 rounded-xl border border-neutral-800">
             <div class="font-bold text-white">C/ALU 90</div>
             <div class="text-neutral-500 mt-0.5">Capsula Metal</div>
           </div>
