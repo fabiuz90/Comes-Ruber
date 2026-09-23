@@ -37,19 +37,12 @@
             sans: ['Montserrat', 'sans-serif'],
           },
           animation: {
-            'smoke-slow': 'smoke 12s ease-in-out infinite alternate',
-            'smoke-fast': 'smoke 7s ease-in-out infinite alternate-reverse',
             'pulse-glow': 'pulseGlow 4s ease-in-out infinite',
           },
           keyframes: {
-            smoke: {
-              '0%': { transform: 'translate(0, 0) scale(1)', opacity: '0.2' },
-              '50%': { transform: 'translate(20px, -15px) scale(1.1)', opacity: '0.45' },
-              '100%': { transform: 'translate(-15px, -30px) scale(1.2)', opacity: '0.2' },
-            },
             pulseGlow: {
-              '0%, 100%': { opacity: '0.3' },
-              '50%': { opacity: '0.6' }
+              '0%, 100%': { opacity: '0.2' },
+              '50%': { opacity: '0.5' }
             }
           }
         }
@@ -95,8 +88,7 @@
       <div class="flex flex-col gap-3">
         <button
           onclick="document.getElementById('age-gate').style.display='none'"
-          className="w-full py-3.5 bg-gold text-black font-semibold text-xs uppercase tracking-[0.2em] rounded-full hover:bg-gold-light transition-all shadow-lg shadow-gold/10"
-          style="background-color: #D4AF37; padding: 14px; border-radius: 9999px; font-weight: 600; color: #000; text-transform: uppercase; letter-spacing: 2px;"
+          class="w-full py-3.5 bg-gold text-black font-semibold text-xs uppercase tracking-[0.2em] rounded-full hover:bg-gold-light transition-all shadow-lg shadow-gold/10"
         >
           Dichiaro di avere 18+ anni
         </button>
@@ -125,75 +117,65 @@
     </div>
   </header>
 
-  <!-- HERO CINEMATOGRAFICA CON SFONDO CANTINA, FUMO E TAVOLO -->
-  <section id="hero" class="relative min-h-screen flex flex-col justify-end items-center overflow-hidden pb-12 pt-28 border-b border-gold/20">
+  <!-- HERO CINEMATOGRAFICA CON IMMAGINE 16:9 4K (hero.png) -->
+  <section id="hero" class="relative min-h-screen flex flex-col justify-center items-center overflow-hidden pt-24 pb-12 border-b border-gold/20">
     
-    <!-- Sfondo Bottaia in Penombra -->
-    <div 
-      class="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105 opacity-25 mix-blend-luminosity pointer-events-none"
-      style="background-image: url('https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?q=80&w=2000&auto=format&fit=crop')"
-    ></div>
-
-    <!-- Volumetric Glow -->
-    <div class="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/75 to-ruby/20 pointer-events-none"></div>
-    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-full max-w-4xl h-96 bg-gold/10 blur-[130px] rounded-full pointer-events-none animate-pulse-glow"></div>
-
-    <!-- Effetti Fumo e Nebbia Dinamica -->
-    <div class="absolute inset-0 pointer-events-none overflow-hidden">
-      <div class="absolute bottom-10 -left-20 w-[600px] h-[400px] bg-neutral-500/10 rounded-full blur-3xl animate-smoke-slow"></div>
-      <div class="absolute bottom-20 -right-20 w-[500px] h-[350px] bg-ruby/15 rounded-full blur-3xl animate-smoke-fast"></div>
-    </div>
-
-    <!-- Contenuto della Scena -->
-    <div class="relative z-10 max-w-4xl mx-auto px-4 text-center flex flex-col items-center">
-      
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/40 bg-black/60 backdrop-blur-md text-gold text-[11px] tracking-[0.3em] uppercase mb-4 shadow-xl">
-        <span>♛</span> Selezione Privata · Annata 2023
-      </div>
-
-      <h1 class="font-serif text-5xl sm:text-7xl lg:text-8xl font-normal text-white tracking-[0.15em] uppercase drop-shadow-2xl">
-        Comes Ruber
-      </h1>
-      <p class="font-serif italic text-gold text-xl sm:text-3xl mb-4 tracking-widest">
-        "Il Conte Rosso"
-      </p>
-
-      <!-- BOTTIGLIA SUL TAVOLO -->
-      <div class="relative w-full max-w-xs h-72 sm:h-96 my-2 flex items-end justify-center">
-        <!-- Ombra della bottiglia -->
-        <div class="absolute bottom-1 w-44 h-6 bg-black/95 blur-md rounded-full transform scale-y-50"></div>
+    <!-- Contenitore 16:9 4K -->
+    <div class="relative w-full max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="relative aspect-video w-full rounded-2xl overflow-hidden border border-gold/30 shadow-[0_0_50px_rgba(0,0,0,0.9)]">
         
-        <!-- Bottiglia -->
+        <!-- Immagine 16:9 caricata su GitHub -->
         <img 
-          src="https://images.unsplash.com/photo-1586370434639-0fe43b2d32e6?q=80&w=800&auto=format&fit=crop" 
-          alt="Bottiglia Comes Ruber su tavolo in cantina"
-          class="relative z-10 h-full object-contain filter drop-shadow-[0_25px_35px_rgba(0,0,0,0.95)] transition-transform duration-700 hover:scale-105"
+          src="hero.png" 
+          alt="Comes Ruber - Selezione Privata 4K" 
+          class="w-full h-full object-cover"
         />
 
-        <!-- Fumo radente -->
-        <div class="absolute bottom-0 w-full h-12 bg-gradient-to-t from-black/80 to-transparent z-20 pointer-events-none"></div>
+        <!-- Sfocature e Gradienti di Sovrapposizione -->
+        <div class="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-black/40 pointer-events-none"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/60 pointer-events-none"></div>
+
+        <!-- Glow d'atmosfera dorata -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-gold/10 blur-[100px] rounded-full pointer-events-none animate-pulse-glow"></div>
+
+        <!-- Testi e Contenuti sopra l'immagine 16:9 -->
+        <div class="absolute inset-0 z-10 flex flex-col justify-between p-6 sm:p-12 text-center items-center">
+          
+          <!-- Badge in alto -->
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/40 bg-black/70 backdrop-blur-md text-gold text-[10px] sm:text-xs tracking-[0.3em] uppercase shadow-2xl mt-2">
+            <span>♛</span> Selezione Privata · Annata 2023
+          </div>
+
+          <!-- Titolo Centrale -->
+          <div class="my-auto">
+            <h1 class="font-serif text-3xl sm:text-6xl md:text-7xl font-normal text-white tracking-[0.2em] uppercase drop-shadow-[0_10px_20px_rgba(0,0,0,0.9)]">
+              Comes Ruber
+            </h1>
+            <p class="font-serif italic text-gold text-base sm:text-2xl mt-2 tracking-widest drop-shadow-md">
+              "Il Conte Rosso"
+            </p>
+          </div>
+
+          <!-- Call to Action in basso -->
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full mb-2">
+            <a
+              href="#tasting"
+              class="w-full sm:w-auto px-6 sm:px-8 py-3 bg-gold text-black text-[11px] sm:text-xs font-semibold uppercase tracking-[0.25em] hover:bg-gold-light transition-all rounded-full shadow-2xl"
+            >
+              Note Degustazione
+            </a>
+            <button
+              onclick="openELabel()"
+              class="w-full sm:w-auto px-6 sm:px-8 py-3 bg-black/60 backdrop-blur-md border border-gold/50 text-gold text-[11px] sm:text-xs font-semibold uppercase tracking-[0.25em] hover:bg-gold/20 transition-all rounded-full"
+            >
+              Consulta E-Label
+            </button>
+          </div>
+
+        </div>
       </div>
-
-      <!-- TAVOLO MASSICCIO IN LEGNO -->
-      <div class="w-full h-2 bg-gradient-to-r from-transparent via-[#2a1a08] to-transparent border-t border-gold/40 shadow-2xl mb-8"></div>
-
-      <!-- PULSANTI -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a
-          href="#tasting"
-          class="px-8 py-3.5 bg-gold text-black text-xs font-semibold uppercase tracking-[0.25em] hover:bg-gold-light transition-all rounded-full shadow-xl shadow-gold/10"
-        >
-          Note Degustazione
-        </a>
-        <button
-          onclick="openELabel()"
-          class="px-8 py-3.5 border border-gold/40 text-gold text-xs font-semibold uppercase tracking-[0.25em] hover:bg-gold/10 transition-all rounded-full"
-        >
-          Consulta E-Label
-        </button>
-      </div>
-
     </div>
+
   </section>
 
   <!-- SEZIONE DEGUSTAZIONE -->
