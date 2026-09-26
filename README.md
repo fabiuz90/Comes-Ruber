@@ -6,13 +6,13 @@
 
 ## 📌 Visione del Progetto
 
-**Comes Ruber** (commercializzato come **Graf Rosso**) nasce con l'obiettivo di coniugare l'eleganza della tradizione vinicola italiana con un'identità visiva d'impatto e moderna. Il progetto abbraccia la progettazione dell'etichetta, la conformità alle normative europee (e-label / QR code) e la presentazione digitale della cantina.
+**Comes Ruber** nasce con l'obiettivo di coniugare l'eleganza della tradizione vinicola italiana con un'identità visiva d'impatto e moderna. Il progetto abbraccia la progettazione dell'etichetta, la conformità alle normative europee (e-label / QR code) e la presentazione digitale della cantina.
 
 ---
 
 ## 🎨 Brand & Identity
 
-* **Nome Brand:** Graf Rosso / Comes Ruber
+* **Nome Brand:** Comes Ruber
 * **Posizionamento:** Vino Rosso di fascia alta / Selezione Privata
 * **Stile Visivo:** Dark mode, oro metallico su carta goffrata scura, minimalismo nobiliare.
 * **Palette Colori:**
@@ -49,4 +49,4 @@ Questa repository racchiude l'infrastruttura web per il brand:
 
 ## 📄 Licenza
 
-Progetto riservato per la linea private label **Graf Rosso / Comes Ruber**. Tutti i diritti riservati.
+Progetto riservato per la linea private label **Comes Ruber**. Tutti i diritti riservati.
